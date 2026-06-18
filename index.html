@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lahcen Mdarhri Alaoui — Architectural Designer & Project Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #080808;
+  --sand:   #E8E0D0;
+  --gold:   #C9974A;
+  --gold2:  #F0C878;
+  --brick:  #8B3A2A;
+  --stone:  #2A2520;
+  --mist:   #B0A898;
+  --paper:  #F4F0E8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* CUSTOM CURSOR */
+*, body { cursor: none !important; }
+#cursor {
+  position: fixed; width: 12px; height: 12px;
+  background: var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed; width: 40px; height: 40px;
+  border: 1px solid var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: all .12s ease-out;
+  opacity: .6;
+}
+body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 20px; height: 20px; background: var(--gold2); }
+body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 60px; height: 60px; opacity: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--sand);
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--gold); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 4rem;
+  mix-blend-mode: normal;
+}
+nav::before {
+  content:''; position: absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(8,8,8,.9) 0%, transparent 100%);
+  pointer-events: none;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  position: relative; z-index:1;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; position:relative;z-index:1; }
+.nav-links a {
+  font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--mist); text-decoration: none; transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content:''; position: absolute; bottom:-3px; left:0; right:100%;
+  height:1px; background:var(--gold); transition: right .3s;
+}
+.nav-links a:hover { color: var(--sand); }
+.nav-links a:hover::after { right: 0; }
+
+/* ── HERO ── */
+#hero {
+  height: 100vh; position: relative;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 4rem; overflow: hidden;
+}
+
+/* Architectural line grid */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(201,151,74,.04) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(201,151,74,.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridFloat 20s linear infinite;
+}
+@keyframes gridFloat {
+  0% { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+.hero-scanline {
+  position: absolute; top: 0; left: -100%; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,151,74,.03) 50%, transparent 100%);
+  animation: scan 8s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes scan { 0%,100%{left:-100%} 50%{left:100%} }
+
+/* Abstract architectural shapes */
+.hero-shape {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 42%;
+  overflow: hidden; z-index: 1;
+}
+.hero-shape svg { width: 100%; height: 100%; }
+
+.hero-content { position: relative; z-index: 2; max-width: 65%; }
+
+.hero-counter {
+  display: flex; gap: 3rem; margin-bottom: 3rem;
+}
+.hero-counter-item { text-align: left; }
+.hero-counter-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; font-weight: 700;
+  color: var(--gold); line-height: 1;
+}
+.hero-counter-label {
+  font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--mist); margin-top: .3rem;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: .7rem; letter-spacing: .2em;
+  color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 32px; height: 1px; background: var(--gold);
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4rem, 7.5vw, 8rem);
+  font-weight: 900; line-height: .9;
+  color: var(--sand); letter-spacing: -.02em;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.hero-name .line { overflow: hidden; }
+.hero-name .word {
+  display: inline-block;
+  animation: slideUp .9s cubic-bezier(.16,1,.3,1) forwards;
+  opacity: 0; transform: translateY(110%);
+}
+.hero-name .word:nth-child(2) { animation-delay: .15s; }
+.hero-name .word:nth-child(3) { animation-delay: .3s; color: var(--gold); font-style: italic; }
+@keyframes slideUp { to { opacity:1; transform:translateY(0); } }
+
+.hero-divider {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+}
+.hero-divider-line { flex:1; max-width:120px; height:1px; background:var(--gold); }
+.hero-divider-cross { color: var(--gold); font-size:.9rem; }
+
+.hero-sub {
+  font-size: 1rem; color: var(--mist);
+  line-height: 1.75; max-width: 480px;
+  animation: fadeIn 1s .6s forwards; opacity:0;
+}
+@keyframes fadeIn { to {opacity:1;} }
+
+.hero-cta {
+  display: flex; gap: 1.5rem; margin-top: 2.5rem;
+  animation: fadeIn 1s .9s forwards; opacity:0;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .7rem;
+  background: var(--gold); color: var(--ink);
+  font-size: .75rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  padding: .9rem 2rem; text-decoration: none;
+  transition: all .25s; border: 1px solid var(--gold);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.btn-primary:hover { background: transparent; color: var(--gold); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .7rem;
+  background: transparent; color: var(--mist);
+  font-size: .75rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  padding: .9rem 2rem; text-decoration: none;
+  transition: all .25s; border: 1px solid #333;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--sand); }
+
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 4rem;
+  display: flex; align-items: center; gap: 1rem;
+  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+  color: #444; animation: fadeIn 1s 1.5s forwards; opacity:0;
+}
+.scroll-line {
+  width: 40px; height: 1px; background: #333;
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content:''; position:absolute; left:-100%; top:0; bottom:0; width:100%;
+  background: var(--gold);
+  animation: scrollAnim 2s 2s ease-in-out infinite;
+}
+@keyframes scrollAnim { 0%{left:-100%} 100%{left:100%} }
+
+/* ── ABOUT ── */
+#about {
+  background: var(--paper);
+  padding: 8rem 4rem;
+  position: relative; overflow: hidden;
+}
+#about::before {
+  content: 'LMA';
+  position: absolute; right: -2rem; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 20rem; font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,0,0,.04);
+  pointer-events: none; line-height: 1;
+  user-select: none;
+}
+
+.about-intro {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 400; font-style: italic;
+  color: var(--stone); line-height: 1.5;
+  max-width: 700px; margin-bottom: 4rem;
+}
+
+.about-grid {
+  display: grid; grid-template-columns: 2fr 1fr;
+  gap: 5rem; max-width: 1100px; position: relative;
+}
+
+.about-bio { color: #3a3530; font-size: 1rem; line-height: 1.9; }
+.about-bio p + p { margin-top: 1.3rem; }
+.about-bio strong { color: var(--stone); font-weight: 500; }
+
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin-top: 2rem;
+}
+.skill-pill {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .78rem; color: var(--stone);
+  padding: .5rem .8rem;
+  border: 1px solid rgba(0,0,0,.1);
+  background: rgba(0,0,0,.02);
+}
+.skill-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+
+.about-sidebar { }
+.stat-pill {
+  background: var(--ink); color: var(--sand);
+  padding: 1.5rem; margin-bottom: 1rem;
+  position: relative; overflow: hidden;
+}
+.stat-pill::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background: var(--gold);
+}
+.stat-pill .val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700; color: var(--gold);
+  line-height: 1; margin-bottom: .3rem;
+}
+.stat-pill .lbl { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--mist); }
+
+.lang-block { margin-top: 2rem; }
+.lang-block h4 { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); margin-bottom: 1rem; opacity: .6; }
+.lang-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .6rem 0; border-bottom: 1px solid rgba(0,0,0,.08);
+  font-size: .85rem; color: var(--stone);
+}
+.lang-row:last-child { border-bottom: none; }
+.lang-level { font-size: .65rem; color: var(--mist); }
+.lang-dots { display:flex;gap:3px; }
+.lang-dot { width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.1); }
+.lang-dot.on { background:var(--gold); }
+
+/* ── PROJECTS ── */
+#projects { padding: 8rem 0; background: var(--ink); }
+.projects-header { padding: 0 4rem; margin-bottom: 4rem; }
+
+.disc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.disc-label::before { content:''; width:32px; height:1px; background:var(--gold); }
+
+.projects-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900; line-height: .95;
+  color: var(--sand);
+}
+.projects-title em { font-style: italic; color: var(--gold); display: block; }
+
+/* COL HEADERS */
+.col-headers {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #1e1e1e;
+  border-bottom: 1px solid #1e1e1e;
+  margin: 0 0 0 0;
+}
+.col-header {
+  padding: 1.2rem 4rem;
+  display: flex; align-items: center; gap: 1.2rem;
+}
+.col-header:first-child { border-right: 1px solid #1e1e1e; background: rgba(201,151,74,.03); }
+.col-header-icon {
+  width: 32px; height: 32px;
+  border: 1px solid var(--gold); display:flex;align-items:center;justify-content:center;
+  flex-shrink: 0;
+}
+.col-header-icon svg { width:16px; height:16px; }
+.col-header h3 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--gold); margin-bottom:.1rem; }
+.col-header p { font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; color:#444; }
+
+/* PROJECT ROWS */
+.projects-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.projects-col-pm { border-right: 1px solid #111; }
+
+/* PROJECT CARD */
+.pcard {
+  border-bottom: 1px solid #111;
+  transition: background .3s;
+  position: relative; overflow: hidden;
+}
+.pcard::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background: var(--gold); transform: scaleY(0); transform-origin: bottom;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.pcard:hover::before { transform: scaleY(1); }
+.pcard:hover { background: #0e0e0e; }
+.pcard.is-open::before { transform: scaleY(1); }
+.pcard.is-open { background: #0a0a0a; }
+
+.pcard-trigger {
+  padding: 2rem 4rem; display:flex; align-items:flex-start;
+  justify-content:space-between; gap:1rem;
+  cursor: none;
+}
+.pcard-meta { flex: 1; }
+.pcard-num {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem; color: var(--gold); letter-spacing: .1em;
+  margin-bottom: .5rem;
+}
+.pcard-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--sand); margin-bottom: .3rem;
+  transition: color .2s;
+}
+.pcard:hover .pcard-name { color: var(--gold2); }
+.pcard-loc { font-size: .72rem; color: #555; letter-spacing: .05em; margin-bottom:.8rem; }
+.pcard-chips { display:flex;flex-wrap:wrap;gap:.4rem; }
+.chip {
+  font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+  padding:.2rem .6rem; border:1px solid #222; color:#555; border-radius:1px;
+  transition: all .2s;
+}
+.chip.au { border-color:rgba(201,151,74,.4); color:var(--gold); }
+.pcard:hover .chip { border-color:#2e2e2e; }
+.pcard:hover .chip.au { border-color:var(--gold); }
+
+/* Expand toggle */
+.pcard-toggle {
+  width:36px; height:36px; border:1px solid #222;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0; transition: all .3s; margin-top:.2rem;
+  background: transparent;
+}
+.pcard-toggle svg { transition: transform .35s cubic-bezier(.16,1,.3,1); }
+.pcard.is-open .pcard-toggle { border-color: var(--gold); background: rgba(201,151,74,.1); }
+.pcard.is-open .pcard-toggle svg { transform: rotate(45deg); }
+.pcard-toggle svg path { stroke: var(--mist); transition: stroke .2s; }
+.pcard.is-open .pcard-toggle svg path { stroke: var(--gold); }
+.pcard:hover .pcard-toggle { border-color: #333; }
+
+/* PANEL */
+.pcard-panel {
+  max-height: 0; overflow: hidden;
+  transition: max-height .6s cubic-bezier(.16,1,.3,1);
+}
+.pcard.is-open .pcard-panel { max-height: 1000px; }
+.pcard-inner { padding: 0 4rem 2.5rem; border-top: 1px solid #111; }
+
+/* TABS */
+.tabs { display:flex; gap:0; margin-bottom:1.5rem; margin-top:1.5rem; }
+.tab-btn {
+  font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
+  color:#444; padding:.6rem 1.2rem; border-bottom:1px solid #111;
+  cursor:none; transition:all .2s; background:transparent; border-top:none;border-left:none;border-right:none;
+}
+.tab-btn.on { color:var(--gold); border-bottom-color:var(--gold); }
+.tab-btn:hover { color:var(--mist); }
+.tab-pane { display:none; animation: fadeIn .3s; }
+.tab-pane.on { display:block; }
+
+/* STATS ROW */
+.stats-row {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:.8rem; margin-bottom:1.5rem;
+}
+.stat-card {
+  background:#080808; border:1px solid #1a1a1a;
+  padding:1rem; position:relative; overflow:hidden;
+}
+.stat-card::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.stat-card .sv {
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem; color:var(--gold); margin-bottom:.2rem;
+}
+.stat-card .sl { font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:#444; }
+
+.body-txt { font-size:.875rem; color:#888; line-height:1.8; margin-bottom:1rem; }
+.body-txt strong { color:var(--sand); font-weight:500; }
+
+/* PAR blocks */
+.par-block {
+  border-left:2px solid var(--gold); padding:.8rem 1rem;
+  margin-bottom:.8rem; background:#050505;
+}
+.par-title { font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:.6rem; }
+.par-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.8rem; }
+.par-col h5 { font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:#444; margin-bottom:.3rem; }
+.par-col p { font-size:.8rem; color:#666; line-height:1.65; }
+
+/* Stakeholder SVG diagram */
+.stakeholder-wrap { margin:1rem 0; }
+.stakeholder-wrap svg { width:100%; height:auto; max-height:180px; }
+
+/* ── EXPERIENCE ── */
+#experience { background:var(--paper); padding:8rem 4rem; position:relative; overflow:hidden; }
+#experience::before {
+  content:'EXP'; position:absolute; left:-3rem; bottom:-2rem;
+  font-family:'Playfair Display',serif; font-size:18rem; font-weight:900;
+  color:transparent; -webkit-text-stroke:1px rgba(0,0,0,.03);
+  pointer-events:none; line-height:1; user-select:none;
+}
+
+.exp-timeline { max-width:900px; margin-top:4rem; position:relative; }
+.exp-timeline::before {
+  content:''; position:absolute; left:140px; top:0; bottom:0; width:1px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,.1) 5%, rgba(0,0,0,.1) 95%, transparent);
+}
+
+.exp-item {
+  display:grid; grid-template-columns:140px 1fr;
+  gap:2.5rem; padding:2rem 0; position:relative;
+}
+.exp-item::before {
+  content:''; position:absolute; left:133px; top:2.5rem;
+  width:15px; height:15px; border-radius:50%;
+  background:var(--paper); border:2px solid rgba(0,0,0,.15);
+  transition: border-color .3s, background .3s;
+}
+.exp-item:hover::before { border-color:var(--gold); background:var(--gold); }
+.exp-date { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--mist); padding-top:.4rem; text-align:right; }
+.exp-body { border-bottom:1px solid rgba(0,0,0,.07); padding-bottom:2rem; }
+.exp-item:last-child .exp-body { border-bottom:none; }
+.exp-role { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--stone); margin-bottom:.2rem; }
+.exp-org { font-size:.8rem; color:var(--gold); margin-bottom:.6rem; font-weight:500; }
+.exp-desc { font-size:.85rem; color:#666; line-height:1.75; }
+
+/* ── CONTACT ── */
+#contact {
+  background:var(--ink); padding:10rem 4rem;
+  position:relative; overflow:hidden; text-align:center;
+}
+.contact-bg {
+  position:absolute; inset:0; z-index:0;
+  background: radial-gradient(ellipse at center, rgba(201,151,74,.06) 0%, transparent 70%);
+}
+.contact-label { font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:2rem; }
+.contact-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,6vw,6rem); font-weight:900; line-height:.95;
+  color:var(--sand); margin-bottom:3rem; position:relative; z-index:1;
+}
+.contact-title em { font-style:italic; color:var(--gold); display:block; }
+
+.contact-email-wrap { position:relative; z-index:1; display:inline-block; }
+.contact-email {
+  font-size:1rem; letter-spacing:.1em;
+  color:var(--sand); text-decoration:none; display:inline-block;
+  padding:.8rem 0; border-bottom:1px solid #333;
+  transition: color .2s, border-color .2s;
+}
+.contact-email:hover { color:var(--gold); border-color:var(--gold); }
+.contact-loc { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:#444; margin-top:2rem; }
+
+/* ── FOOTER ── */
+footer {
+  background:#030303; padding:1.5rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.65rem; color:#222; letter-spacing:.1em; font-family:'DM Mono',monospace;
+}
+
+/* ── PORTFOLIO LINK ── */
+.portfolio-link-wrap { padding:3rem 4rem 1rem; }
+.portfolio-link {
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(201,151,74,.3);
+  padding:.8rem 2rem;text-decoration:none;
+  transition:all .25s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.portfolio-link:hover { background:rgba(201,151,74,.1);border-color:var(--gold); }
+.portfolio-link svg { width:14px;height:14px;stroke:currentColor; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  section,#about,#projects,#experience,#contact,footer{padding-left:1.5rem;padding-right:1.5rem;}
+  #hero{padding:0 1.5rem;}
+  .hero-shape{display:none;}
+  .hero-content{max-width:100%;}
+  .hero-counter{flex-wrap:wrap;gap:1.5rem;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .projects-title{font-size:2.5rem;}
+  .col-headers,.projects-grid{grid-template-columns:1fr;}
+  .projects-col-pm{border-right:none;}
+  .col-header{padding:1rem 1.5rem;}
+  .pcard-trigger{padding:1.5rem 1.5rem;}
+  .pcard-inner{padding:0 1.5rem 1.5rem;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .par-grid{grid-template-columns:1fr;}
+  .exp-timeline::before{left:0;}
+  .exp-item{grid-template-columns:1fr;gap:.5rem;}
+  .exp-item::before{display:none;}
+  .exp-date{text-align:left;padding:0;}
+  .portfolio-link-wrap{padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">LMA</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#experience">Parcours</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-scanline"></div>
+
+  <!-- Abstract architectural SVG right panel -->
+  <div class="hero-shape">
+    <svg viewBox="0 0 500 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- Grid lines -->
+      <g opacity=".12" stroke="#C9974A" stroke-width=".5">
+        <line x1="0" y1="100" x2="500" y2="100"/>
+        <line x1="0" y1="200" x2="500" y2="200"/>
+        <line x1="0" y1="300" x2="500" y2="300"/>
+        <line x1="0" y1="400" x2="500" y2="400"/>
+        <line x1="0" y1="500" x2="500" y2="500"/>
+        <line x1="0" y1="600" x2="500" y2="600"/>
+        <line x1="0" y1="700" x2="500" y2="700"/>
+        <line x1="100" y1="0" x2="100" y2="800"/>
+        <line x1="200" y1="0" x2="200" y2="800"/>
+        <line x1="300" y1="0" x2="300" y2="800"/>
+        <line x1="400" y1="0" x2="400" y2="800"/>
+      </g>
+      <!-- Building silhouette abstract -->
+      <g opacity=".18">
+        <rect x="60" y="300" width="80" height="500" fill="none" stroke="#C9974A" stroke-width="1"/>
+        <rect x="80" y="260" width="40" height="40" fill="none" stroke="#C9974A" stroke-width="1"/>
+        <rect x="180" y="180" width="120" height="620" fill="none" stroke="#C9974A" stroke-width="1"/>
+        <rect x="200" y="130" width="80" height="50" fill="none" stroke="#C9974A" stroke-width="1"/>
+        <rect x="330" y="350" width="100" height="450" fill="none" stroke="#C9974A" stroke-width="1"/>
+        <!-- Windows -->
+        <rect x="75" y="320" width="12" height="16" fill="#C9974A" opacity=".3"/>
+        <rect x="75" y="350" width="12" height="16" fill="#C9974A" opacity=".2"/>
+        <rect x="75" y="380" width="12" height="16" fill="#C9974A" opacity=".3"/>
+        <rect x="110" y="320" width="12" height="16" fill="#C9974A" opacity=".15"/>
+        <rect x="110" y="380" width="12" height="16" fill="#C9974A" opacity=".25"/>
+        <rect x="195" y="200" width="18" height="24" fill="#C9974A" opacity=".25"/>
+        <rect x="225" y="200" width="18" height="24" fill="#C9974A" opacity=".35"/>
+        <rect x="255" y="200" width="18" height="24" fill="#C9974A" opacity=".2"/>
+        <rect x="195" y="240" width="18" height="24" fill="#C9974A" opacity=".15"/>
+        <rect x="255" y="240" width="18" height="24" fill="#C9974A" opacity=".3"/>
+        <rect x="195" y="280" width="18" height="24" fill="#C9974A" opacity=".3"/>
+        <rect x="225" y="280" width="18" height="24" fill="#C9974A" opacity=".1"/>
+        <rect x="348" y="370" width="14" height="18" fill="#C9974A" opacity=".2"/>
+        <rect x="370" y="370" width="14" height="18" fill="#C9974A" opacity=".35"/>
+        <rect x="395" y="370" width="14" height="18" fill="#C9974A" opacity=".15"/>
+        <!-- Ground line -->
+        <line x1="0" y1="800" x2="500" y2="800" stroke="#C9974A" stroke-width="1.5"/>
+        <!-- Dimension arrows -->
+        <line x1="60" y1="280" x2="140" y2="280" stroke="#C9974A" stroke-width=".5" opacity=".4"/>
+        <line x1="60" y1="276" x2="60" y2="284" stroke="#C9974A" stroke-width=".5" opacity=".4"/>
+        <line x1="140" y1="276" x2="140" y2="284" stroke="#C9974A" stroke-width=".5" opacity=".4"/>
+        <text x="100" y="275" text-anchor="middle" fill="#C9974A" font-size="8" opacity=".4" font-family="DM Mono">12.000 m²</text>
+      </g>
+      <!-- Compass rose -->
+      <g transform="translate(430,60)" opacity=".25">
+        <circle cx="0" cy="0" r="24" stroke="#C9974A" stroke-width=".5" fill="none"/>
+        <line x1="0" y1="-24" x2="0" y2="24" stroke="#C9974A" stroke-width=".5"/>
+        <line x1="-24" y1="0" x2="24" y2="0" stroke="#C9974A" stroke-width=".5"/>
+        <text x="0" y="-28" text-anchor="middle" fill="#C9974A" font-size="8" font-family="DM Mono">N</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-counter">
+      <div class="hero-counter-item">
+        <div class="hero-counter-val" data-target="10">0</div>
+        <div class="hero-counter-label">Années d'exp.</div>
+      </div>
+      <div class="hero-counter-item">
+        <div class="hero-counter-val" data-target="6">0</div>
+        <div class="hero-counter-label">Projets clés</div>
+      </div>
+      <div class="hero-counter-item">
+        <div class="hero-counter-val" data-target="4">0</div>
+        <div class="hero-counter-label">Langues</div>
+      </div>
+    </div>
+
+    <p class="hero-eyebrow">Architectural Designer · Project Manager</p>
+
+    <h1 class="hero-name">
+      <div class="line"><span class="word">Lahcen</span></div>
+      <div class="line"><span class="word">Mdarhri</span></div>
+      <div class="line"><span class="word">Alaoui</span></div>
+    </h1>
+
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <span class="hero-divider-cross">×</span>
+      <div class="hero-divider-line" style="max-width:40px"></div>
+    </div>
+
+    <p class="hero-sub">Du concept à la livraison — conception architecturale et pilotage de projets complexes entre le Maroc et le Canada.</p>
+
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">
+        Voir les projets
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#contact" class="btn-secondary">Me contacter</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="disc-label" style="color:var(--stone);opacity:.6">À propos</p>
+  <p class="about-intro">"Je traduis la vision architecturale en réalité bâtie — en gérant les équipes, les budgets et les délais sans jamais sacrifier la qualité du design."</p>
+
+  <div class="about-grid">
+    <div>
+      <div class="about-bio">
+        <p>Designer architectural et chef de projet avec plus de dix ans d'expérience entre le Maroc et le Canada. Mon parcours combine une <strong>Maîtrise en Architecture</strong> de l'École d'Architecture de Casablanca et un <strong>Certificat en gestion de projets de construction</strong> d'Algonquin College — une double formation qui me permet de parler le langage du design comme celui du chantier.</p>
+        <p>De Rabat à Ottawa, j'ai piloté des projets institutionnels, résidentiels et hôteliers de grande envergure, coordonné des équipes multilingues et multiculturelles, et livré dans des contextes contraints (site actif, budget serré, programme évolutif).</p>
+        <p>Basé à Ottawa, je cherche des opportunités à <strong>Montréal</strong> en gestion de projets, coordination architecturale ou design d'intérieur.</p>
+      </div>
+
+      <div class="skills-grid" style="margin-top:2rem">
+        <div class="skill-pill"><div class="skill-dot"></div>Revit</div>
+        <div class="skill-pill"><div class="skill-dot"></div>AutoCAD</div>
+        <div class="skill-pill"><div class="skill-dot"></div>SketchUp + VRay</div>
+        <div class="skill-pill"><div class="skill-dot"></div>MS Project</div>
+        <div class="skill-pill"><div class="skill-dot"></div>Smartsheet</div>
+        <div class="skill-pill"><div class="skill-dot"></div>Adobe CC</div>
+      </div>
+    </div>
+
+    <div class="about-sidebar">
+      <div class="stat-pill"><div class="val">10+</div><div class="lbl">Années d'expérience</div></div>
+      <div class="stat-pill"><div class="val">$7.8M</div><div class="lbl">Budget max géré (CAD)</div></div>
+      <div class="stat-pill"><div class="val">2</div><div class="lbl">Pays · Maroc & Canada</div></div>
+
+      <div class="lang-block">
+        <h4>Langues</h4>
+        <div class="lang-row">
+          Français
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div></div>
+            <span class="lang-level">Natif</span>
+          </div>
+        </div>
+        <div class="lang-row">
+          English
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div></div>
+            <span class="lang-level">Fluent</span>
+          </div>
+        </div>
+        <div class="lang-row">
+          العربية
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div></div>
+            <span class="lang-level">Natif</span>
+          </div>
+        </div>
+        <div class="lang-row">
+          Darija
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div></div>
+            <span class="lang-level">Natif</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header">
+    <p class="disc-label">Projets sélectionnés</p>
+    <h2 class="projects-title">Six projets.<br><em>Deux disciplines.</em></h2>
+  </div>
+
+  <div class="col-headers">
+    <div class="col-header">
+      <div class="col-header-icon">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#C9974A" stroke-width="1.2">
+          <rect x="2" y="2" width="12" height="12"/><line x1="5" y1="2" x2="5" y2="14"/><line x1="2" y1="6" x2="14" y2="6"/>
+        </svg>
+      </div>
+      <div>
+        <h3>Project Management</h3>
+        <p>Livraison complexe · multi-parties · PM lead</p>
+      </div>
+    </div>
+    <div class="col-header">
+      <div class="col-header-icon">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#C9974A" stroke-width="1.2">
+          <polygon points="8,2 14,14 2,14"/><line x1="8" y1="7" x2="8" y2="11"/>
+        </svg>
+      </div>
+      <div>
+        <h3>Architecture &amp; Design</h3>
+        <p>Concept · développement · documentation</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+    <!-- LEFT: PM -->
+    <div class="projects-col-pm">
+
+      <!-- 01 DESCARTES -->
+      <div class="pcard" id="pc1">
+        <div class="pcard-trigger" onclick="toggleCard('pc1')">
+          <div class="pcard-meta">
+            <div class="pcard-num">01 / Lycée Descartes</div>
+            <div class="pcard-name">Lycée Descartes</div>
+            <div class="pcard-loc">Rabat, Maroc · AEFE (Gouvernement français)</div>
+            <div class="pcard-chips">
+              <span class="chip au">PM Lead</span>
+              <span class="chip">Éducation</span>
+              <span class="chip">$7.8M CAD</span>
+              <span class="chip">12 000 m²</span>
+              <span class="chip">2019–2021</span>
+            </div>
+          </div>
+          <div class="pcard-toggle">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="pcard-panel">
+          <div class="pcard-inner">
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchTabCard('pc1','desc',this)">Description</button>
+              <button class="tab-btn" onclick="switchTabCard('pc1','pm',this)">Gestion PM</button>
+            </div>
+            <div class="tab-pane on" data-tab="pc1-desc">
+              <div class="stats-row">
+                <div class="stat-card"><div class="sv">$7.8M</div><div class="sl">Budget CAD</div></div>
+                <div class="stat-card"><div class="sv">12 000</div><div class="sl">m²</div></div>
+                <div class="stat-card"><div class="sv">14</div><div class="sl">Sous-traitants</div></div>
+              </div>
+              <p class="body-txt">Rénovation et extension du lycée français de Rabat sous mandat de l'AEFE. Le projet comprenait <strong>des salles de classe, laboratoires, salle de sport et aile administrative</strong>, livré en phases dans un établissement en activité. Interface quotidienne entre la représentation française, l'administration marocaine et 14 sous-traitants locaux.</p>
+            </div>
+            <div class="tab-pane" data-tab="pc1-pm">
+              <div class="par-block">
+                <div class="par-title">Défi principal · Coordination de 14 sous-traitants</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Problème</h5><p>14 sous-traitants sans système de planning commun — conflits de planning causant 3 semaines de retard par phase.</p></div>
+                  <div class="par-col"><h5>Action</h5><p>Mise en place d'un Gantt phasé sous MS Project, réunions hebdo de coordination, tableau de responsabilités par corps de métier.</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Livraison dans les délais sur les 4 phases. Phase finale livrée 6 jours avant la rentrée scolaire.</p></div>
+                </div>
+              </div>
+              <div class="par-block">
+                <div class="par-title">Matrice des parties prenantes</div>
+                <div class="stakeholder-wrap">
+                  <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="55" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="56" y="74" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">AEFE (Paris)</text>
+                    <rect x="1" y="95" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="56" y="114" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">Min. Éducation Maroc</text>
+                    <rect x="1" y="15" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="56" y="34" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">ARPIO Architectes</text>
+                    <line x1="111" y1="30" x2="195" y2="75" stroke="#2a2520" stroke-width=".8"/>
+                    <line x1="111" y1="70" x2="195" y2="80" stroke="#2a2520" stroke-width=".8"/>
+                    <line x1="111" y1="110" x2="195" y2="85" stroke="#2a2520" stroke-width=".8"/>
+                    <rect x="195" y="55" width="110" height="50" rx="2" fill="#C9974A"/>
+                    <text x="250" y="76" text-anchor="middle" fill="#080808" font-size="11" font-weight="bold" font-family="DM Sans">LMA</text>
+                    <text x="250" y="92" text-anchor="middle" fill="#080808" font-size="9" font-family="DM Sans">Chef de projet</text>
+                    <line x1="305" y1="70" x2="389" y2="35" stroke="#2a2520" stroke-width=".8"/>
+                    <line x1="305" y1="75" x2="389" y2="75" stroke="#2a2520" stroke-width=".8"/>
+                    <line x1="305" y1="80" x2="389" y2="115" stroke="#2a2520" stroke-width=".8"/>
+                    <rect x="389" y="15" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="444" y="34" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">BET Structure+MEP</text>
+                    <rect x="389" y="55" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="444" y="74" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">14 Sous-traitants</text>
+                    <rect x="389" y="95" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="444" y="114" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">Sécurité chantier</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 FARM BOY -->
+      <div class="pcard" id="pc4">
+        <div class="pcard-trigger" onclick="toggleCard('pc4')">
+          <div class="pcard-meta">
+            <div class="pcard-num">04 / Farm Boy</div>
+            <div class="pcard-name">Farm Boy — Retail Rollout</div>
+            <div class="pcard-loc">Ottawa, Canada · Farm Boy Inc.</div>
+            <div class="pcard-chips">
+              <span class="chip au">PM Lead</span>
+              <span class="chip">Retail</span>
+              <span class="chip">Multi-sites</span>
+              <span class="chip">2023–2025</span>
+            </div>
+          </div>
+          <div class="pcard-toggle">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="pcard-panel">
+          <div class="pcard-inner">
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchTabCard('pc4','desc',this)">Description</button>
+              <button class="tab-btn" onclick="switchTabCard('pc4','pm',this)">Gestion PM</button>
+            </div>
+            <div class="tab-pane on" data-tab="pc4-desc">
+              <div class="stats-row">
+                <div class="stat-card"><div class="sv">4+</div><div class="sl">Sites</div></div>
+                <div class="stat-card"><div class="sv">0</div><div class="sl">Fermetures</div></div>
+                <div class="stat-card"><div class="sv">2 ans</div><div class="sl">Programme</div></div>
+              </div>
+              <p class="body-txt">Gestion de projet et coordination de design pour un <strong>programme de rénovation multi-sites</strong> dans les épiceries Farm Boy de la région d'Ottawa. Responsabilités complètes : de la conception schématique à l'administration de construction, coordonnant finitions, équipements et entrepreneurs en magasin ouvert.</p>
+            </div>
+            <div class="tab-pane" data-tab="pc4-pm">
+              <div class="par-block">
+                <div class="par-title">Défi principal · Rénovation en magasin ouvert</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Problème</h5><p>Travaux dans des magasins en exploitation — zéro tolérance pour l'interruption client ou la fermeture opérationnelle.</p></div>
+                  <div class="par-col"><h5>Action</h5><p>Séquences de construction phasées avec layouts temporaires, protocoles de travaux hors heures d'ouverture, briefings hebdo avec le client.</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Tous les sites complétés sans fermeture. Aucun incident client rapporté sur l'ensemble du programme.</p></div>
+                </div>
+              </div>
+              <div class="par-block">
+                <div class="par-title">Structure des parties prenantes</div>
+                <div class="stakeholder-wrap">
+                  <svg viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="30" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="56" y="49" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">VP Real Estate</text>
+                    <rect x="1" y="70" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="56" y="89" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">Dept. Design Interne</text>
+                    <line x1="111" y1="45" x2="195" y2="55" stroke="#2a2520" stroke-width=".8"/>
+                    <line x1="111" y1="85" x2="195" y2="65" stroke="#2a2520" stroke-width=".8"/>
+                    <rect x="195" y="35" width="110" height="50" rx="2" fill="#C9974A"/>
+                    <text x="250" y="56" text-anchor="middle" fill="#080808" font-size="11" font-weight="bold" font-family="DM Sans">LMA</text>
+                    <text x="250" y="72" text-anchor="middle" fill="#080808" font-size="9" font-family="DM Sans">Chef de projet</text>
+                    <line x1="305" y1="55" x2="389" y2="45" stroke="#2a2520" stroke-width=".8"/>
+                    <line x1="305" y1="65" x2="389" y2="85" stroke="#2a2520" stroke-width=".8"/>
+                    <rect x="389" y="30" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="444" y="49" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">GC + Corps de métiers</text>
+                    <rect x="389" y="70" width="110" height="30" rx="2" fill="#0e0e0e" stroke="#2a2520"/>
+                    <text x="444" y="89" text-anchor="middle" fill="#666" font-size="9" font-family="DM Sans">Fournisseurs équipements</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 AMBER MIRAGE -->
+      <div class="pcard" id="pc6">
+        <div class="pcard-trigger" onclick="toggleCard('pc6')">
+          <div class="pcard-meta">
+            <div class="pcard-num">06 / Amber Mirage</div>
+            <div class="pcard-name">Amber Mirage Resort</div>
+            <div class="pcard-loc">Maroc · Hôtellerie de luxe</div>
+            <div class="pcard-chips">
+              <span class="chip au">PM Lead</span>
+              <span class="chip">Hôtellerie</span>
+              <span class="chip">Off-grid</span>
+              <span class="chip">3 clusters</span>
+            </div>
+          </div>
+          <div class="pcard-toggle">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="pcard-panel">
+          <div class="pcard-inner">
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchTabCard('pc6','desc',this)">Description</button>
+              <button class="tab-btn" onclick="switchTabCard('pc6','pm',this)">Gestion PM</button>
+            </div>
+            <div class="tab-pane on" data-tab="pc6-desc">
+              <div class="stats-row">
+                <div class="stat-card"><div class="sv">3</div><div class="sl">Clusters</div></div>
+                <div class="stat-card"><div class="sv">Off-grid</div><div class="sl">Infra. autonome</div></div>
+                <div class="stat-card"><div class="sv">14 mois</div><div class="sl">Construction</div></div>
+              </div>
+              <p class="body-txt">Développement d'un éco-resort de luxe dans un site désertique reculé au Maroc — programme en <strong>trois clusters</strong> (villas, hub d'équipements, compound du personnel) avec infrastructure entièrement autonome (solaire, collecte d'eau, biomasse).</p>
+            </div>
+            <div class="tab-pane" data-tab="pc6-pm">
+              <div class="par-block">
+                <div class="par-title">Viabilité ROI · Investisseurs</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Problème</h5><p>Incertitude investisseurs sur le retour sur investissement de l'infrastructure off-grid.</p></div>
+                  <div class="par-col"><h5>Action</h5><p>Modèle ROI phasé montrant un remboursement en 7 ans vs. 11 ans pour connexion réseau conventionnelle.</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Investissement confirmé. Périmètre off-grid approuvé intégralement.</p></div>
+                </div>
+              </div>
+              <div class="par-block">
+                <div class="par-title">Logistique site isolé</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Problème</h5><p>Pas d'accès routier, pas de réseau, 3h de convoi vers le fournisseur le plus proche.</p></div>
+                  <div class="par-col"><h5>Action</h5><p>Stratégie de préfabrication, planning de livraison séquentiel, protocole de stockage sur site.</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Zéro rupture de stock critique sur la fenêtre de construction de 14 mois.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end PM col -->
+
+    <!-- RIGHT: ARCH -->
+    <div>
+
+      <!-- 02 INDIAN CULTURAL CENTER -->
+      <div class="pcard" id="pc2">
+        <div class="pcard-trigger" onclick="toggleCard('pc2')">
+          <div class="pcard-meta">
+            <div class="pcard-num">02 / Indian Cultural Center</div>
+            <div class="pcard-name">Indian Cultural Center</div>
+            <div class="pcard-loc">Rabat, Maroc · Ambassade d'Inde</div>
+            <div class="pcard-chips">
+              <span class="chip au">Design Lead</span>
+              <span class="chip">Culturel</span>
+              <span class="chip">Diplomatique</span>
+              <span class="chip">2 000 m²</span>
+            </div>
+          </div>
+          <div class="pcard-toggle">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="pcard-panel">
+          <div class="pcard-inner">
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchTabCard('pc2','desc',this)">Description</button>
+              <button class="tab-btn" onclick="switchTabCard('pc2','design',this)">Design Lead</button>
+            </div>
+            <div class="tab-pane on" data-tab="pc2-desc">
+              <div class="stats-row">
+                <div class="stat-card"><div class="sv">2 000</div><div class="sl">m²</div></div>
+                <div class="stat-card"><div class="sv">Rabat</div><div class="sl">Localisation</div></div>
+                <div class="stat-card"><div class="sv">Ambassade</div><div class="sl">Client</div></div>
+              </div>
+              <p class="body-txt">Conception d'un <strong>centre culturel et diplomatique</strong> pour l'Ambassade de l'Inde à Rabat — galeries d'exposition, salle de conférence, bibliothèque et salles de cours de langue. Le défi : concilier les protocoles de sécurité de l'ambassade avec l'ouverture et l'accessibilité d'une institution culturelle publique.</p>
+            </div>
+            <div class="tab-pane" data-tab="pc2-design">
+              <div class="par-block">
+                <div class="par-title">Défi design · Sécurité vs. Ouverture culturelle</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Défi</h5><p>Périmètre d'ambassade avec accès contrôlé — mais un centre culturel doit rester ouvert et accueillant pour le public.</p></div>
+                  <div class="par-col"><h5>Réponse</h5><p>Séquence de "décompression" : parvis public → pavillon d'entrée filtré → zone galerie sécurisée. Transparence par la matérialité (écrans en treillis, lobbys vitrés).</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Concept validé par le client comme modèle de réconciliation entre programmation diplomatique et culturelle.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 OFFICE -->
+      <div class="pcard" id="pc3">
+        <div class="pcard-trigger" onclick="toggleCard('pc3')">
+          <div class="pcard-meta">
+            <div class="pcard-num">03 / Office Building</div>
+            <div class="pcard-name">Immeuble de bureaux</div>
+            <div class="pcard-loc">Rabat, Maroc · Promoteur privé</div>
+            <div class="pcard-chips">
+              <span class="chip au">Design Lead</span>
+              <span class="chip">Bureaux</span>
+              <span class="chip">Mixte</span>
+              <span class="chip">8 000 m²</span>
+            </div>
+          </div>
+          <div class="pcard-toggle">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="pcard-panel">
+          <div class="pcard-inner">
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchTabCard('pc3','desc',this)">Description</button>
+              <button class="tab-btn" onclick="switchTabCard('pc3','design',this)">Design Lead</button>
+            </div>
+            <div class="tab-pane on" data-tab="pc3-desc">
+              <div class="stats-row">
+                <div class="stat-card"><div class="sv">8 000</div><div class="sl">m²</div></div>
+                <div class="stat-card"><div class="sv">9</div><div class="sl">Étages</div></div>
+                <div class="stat-card"><div class="sv">Mixte</div><div class="sl">Programme</div></div>
+              </div>
+              <p class="body-txt">Immeuble de bureaux mixte avec commerces en rez-de-chaussée, plateaux ouverts et terrasse en toiture. Le périmètre du projet <strong>a doublé en cours de conception</strong> — de 4 à 9 niveaux — nécessitant une révision complète de la stratégie structurelle tout en préservant la continuité du design.</p>
+            </div>
+            <div class="tab-pane" data-tab="pc3-design">
+              <div class="par-block">
+                <div class="par-title">Programme doublé en cours de projet</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Défi</h5><p>Client double le nombre de niveaux de 4 à 9 après validation du schéma — structure, MEP et programme tous invalidés.</p></div>
+                  <div class="par-col"><h5>Réponse</h5><p>Nouveau concept structurel (noyau béton + ossature composite) réutilisant la logique de fondation existante. Réévaluation complète de tous les systèmes en 3 semaines.</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Design révisé approuvé sans litige honoraires. Langage architectural d'origine préservé sur les 9 niveaux.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 VERTIKA -->
+      <div class="pcard" id="pc5">
+        <div class="pcard-trigger" onclick="toggleCard('pc5')">
+          <div class="pcard-meta">
+            <div class="pcard-num">05 / Vertika</div>
+            <div class="pcard-name">Vertika Residences</div>
+            <div class="pcard-loc">Casablanca, Maroc · Promoteur privé</div>
+            <div class="pcard-chips">
+              <span class="chip au">Design Lead</span>
+              <span class="chip">Résidentiel</span>
+              <span class="chip">54 unités</span>
+              <span class="chip">Tour</span>
+            </div>
+          </div>
+          <div class="pcard-toggle">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="pcard-panel">
+          <div class="pcard-inner">
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchTabCard('pc5','desc',this)">Description</button>
+              <button class="tab-btn" onclick="switchTabCard('pc5','design',this)">Design Lead</button>
+            </div>
+            <div class="tab-pane on" data-tab="pc5-desc">
+              <div class="stats-row">
+                <div class="stat-card"><div class="sv">54</div><div class="sl">Unités</div></div>
+                <div class="stat-card"><div class="sv">16</div><div class="sl">Niveaux</div></div>
+                <div class="stat-card"><div class="sv">8</div><div class="sl">Typologies</div></div>
+              </div>
+              <p class="body-txt">Tour résidentielle de 16 niveaux avec <strong>54 appartements</strong> répartis en 8 typologies. Défi : maintenir la cohérence du design intérieur sur l'ensemble des unités tout en adaptant chaque étage aux variations structurelles et à l'orientation des vues.</p>
+            </div>
+            <div class="tab-pane" data-tab="pc5-design">
+              <div class="par-block">
+                <div class="par-title">Cohérence sur 54 unités</div>
+                <div class="par-grid">
+                  <div class="par-col"><h5>Défi</h5><p>54 unités, 8 typologies, 16 niveaux — qualité intérieure cohérente malgré les variations d'orientation et de structure.</p></div>
+                  <div class="par-col"><h5>Réponse</h5><p>Kit de parties modulaires : palette de matériaux fixe, règles de mise en page adaptables, matrice de typologies avec variantes permises par type d'unité.</p></div>
+                  <div class="par-col"><h5>Résultat</h5><p>Le promoteur a utilisé la matrice comme outil de vente — la comparaison d'unités a réduit le temps de décision client de 40%.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end Arch col -->
+  </div><!-- end grid -->
+
+  <div class="portfolio-link-wrap">
+    <a href="https://www.calameo.com" target="_blank" class="portfolio-link">
+      Voir le portfolio complet
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="disc-label" style="color:var(--stone);opacity:.6">Parcours professionnel</p>
+  <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3.5rem);font-weight:900;color:var(--stone);line-height:1.1;margin-bottom:.5rem">10 ans. <em style="font-style:italic;color:var(--gold)">Deux pays.</em></h2>
+
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-date">2023 – 2025</div>
+      <div class="exp-body">
+        <div class="exp-role">Tuteur en Architecture</div>
+        <div class="exp-org">Cégep de l'Outaouais · Gatineau, Canada</div>
+        <div class="exp-desc">Enseignement des technologies de l'architecture — structures, systèmes du bâtiment, dessin technique et atelier de projet. Développement de cours en français incluant les systèmes de bois d'ingénierie (CLT, LVL, bois lamellé-collé) et le dimensionnement des dalles en béton armé adapté aux normes canadiennes (CSA A23.3, CNB 2020).</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2023 – 2025</div>
+      <div class="exp-body">
+        <div class="exp-role">Gestionnaire Design & Construction</div>
+        <div class="exp-org">Farm Boy Inc. · Ottawa, Canada</div>
+        <div class="exp-desc">Programme de rénovation multi-sites dans la région d'Ottawa. Responsabilité PM complète de la conception schématique à l'administration de construction, coordination GC, corps de métiers et fournisseurs d'équipements dans des magasins en exploitation simultanée.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2019 – 2022</div>
+      <div class="exp-body">
+        <div class="exp-role">Designer Architectural & Chef de Projet</div>
+        <div class="exp-org">ARPIO Architectes · Rabat, Maroc</div>
+        <div class="exp-desc">Design et gestion de projets institutionnels, résidentiels et hôteliers. Projet phare : rénovation du Lycée Descartes (mandat AEFE, 7,8M$ CAD, 12 000 m²). Coordination de 14 sous-traitants, documentation bilingue français-arabe, livraison phasée en établissement actif.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2017 – 2019</div>
+      <div class="exp-body">
+        <div class="exp-role">Designer Architectural</div>
+        <div class="exp-org">Aziza Chaouni Projects · Fez, Maroc · Toronto, Canada</div>
+        <div class="exp-desc">Studio international avec projets au Maroc et au Canada. Développement de design, documentation technique, études de conservation du patrimoine et recherche en design durable.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2015 – 2017</div>
+      <div class="exp-body">
+        <div class="exp-role">Designer Architectural</div>
+        <div class="exp-org">Les Quatre Cerises · Casablanca, Maroc</div>
+        <div class="exp-desc">Projets résidentiels et commerciaux. Conception schématique jusqu'au dossier de permis. Présentations clients, cahiers de spécifications et détails de construction.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2013 – 2015</div>
+      <div class="exp-body">
+        <div class="exp-role">Coordonnateur Technique</div>
+        <div class="exp-org">Ministère de l'Intérieur · Rabat, Maroc</div>
+        <div class="exp-desc">Coordination d'infrastructures publiques au sein du Ministère. Examen des dossiers techniques, conformité aux réglementations d'urbanisme marocaines et coordination avec les administrations régionales.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-bg"></div>
+  <p class="contact-label">Contact</p>
+  <h2 class="contact-title">
+    Construisons<br><em>ensemble.</em>
+  </h2>
+  <div class="contact-email-wrap">
+    <a href="mailto:lahcen.mdarhri@gmail.com" class="contact-email">lahcen.mdarhri@gmail.com</a>
+  </div>
+  <p class="contact-loc">Disponible à Montréal · Ottawa · Télétravail</p>
+</section>
+
+<footer>
+  <span>© 2026 Lahcen Mdarhri Alaoui</span>
+  <span>LMA × Architectural Designer & Project Manager</span>
+</footer>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  }, 60);
+});
+
+// ANIMATED COUNTERS
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix || (target > 100 ? '' : '+');
+  let start = 0;
+  const dur = 1200;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const prog = Math.min((timestamp - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - prog, 3);
+    el.textContent = Math.floor(ease * target) + (prog === 1 ? suffix : '');
+    if (prog < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const counters = document.querySelectorAll('[data-target]');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); obs.unobserve(e.target); } });
+}, { threshold: .5 });
+counters.forEach(c => obs.observe(c));
+
+// PROJECT TOGGLE
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  const isOpen = card.classList.contains('is-open');
+  document.querySelectorAll('.pcard.is-open').forEach(c => c.classList.remove('is-open'));
+  if (!isOpen) card.classList.add('is-open');
+}
+
+// TAB SWITCH
+function switchTabCard(cardId, tabId, btn) {
+  event.stopPropagation();
+  const card = document.getElementById(cardId);
+  card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+  card.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  card.querySelector('[data-tab="' + cardId + '-' + tabId + '"]').classList.add('on');
+}
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.exp-item, .stat-pill, .skill-pill');
+const ro = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }, i * 60);
+      ro.unobserve(e.target);
+    }
+  });
+}, { threshold: .1 });
+reveals.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  ro.observe(el);
+});
+</script>
+</body>
+</html>
