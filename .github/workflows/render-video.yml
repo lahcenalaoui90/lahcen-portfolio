@@ -1,0 +1,42 @@
+name: Render Portfolio Video
+
+on:
+  push:
+    branches:
+      - main
+      - claude/remotion-dev-skills-9i883q
+    paths:
+      - "my-video/src/**"
+      - "my-video/public/**"
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: my-video/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: my-video
+
+      - name: Install Chrome
+        run: npx remotion browser ensure
+        working-directory: my-video
+
+      - name: Render video
+        run: npx remotion render PortfolioReel out/portfolio.mp4 --log=verbose
+        working-directory: my-video
+
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-video
+          path: my-video/out/portfolio.mp4
+          retention-days: 7
