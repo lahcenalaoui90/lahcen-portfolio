@@ -105,6 +105,7 @@
   .tag.pub { border-color: #7aad8a; color: #7aad8a; text-decoration: none; cursor: pointer; }
   .tag.pub:hover { background: #7aad8a; color: #fff; }
 
+  .pm-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start; }
   /* PROJECT DETAIL PANEL */
   .project-detail { display: none; background: var(--bg3); border: 1px solid var(--line2); overflow: hidden; }
   .project-detail.open { display: block; }
@@ -112,9 +113,6 @@
   /* PROJECT FOCUS STATE */
   .projects-columns { transition: grid-template-columns 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
   .projects-col { transition: opacity 0.4s ease, padding 0.45s ease; min-width: 0; }
-  .projects-columns.has-focus .projects-col { overflow: hidden; }
-  .projects-columns.has-focus .projects-col:not(.active-col) { opacity: 0; pointer-events: none; padding: 0 !important; border: none !important; overflow: hidden; }
-  .projects-columns.has-focus .projects-col.active-col { border-right: none !important; padding-right: 0 !important; padding-left: 0 !important; }
   .projects-columns.has-focus .project-item:not(.active) { opacity: 0.15; pointer-events: none; padding-top: 0.6rem; padding-bottom: 0.6rem; border-top-color: transparent; }
   .projects-columns.has-focus .project-item.active { padding-left: 1.2rem; border-top-color: var(--accent); }
   .projects-columns.has-focus .project-item.active .project-num { color: var(--accent); }
@@ -332,6 +330,20 @@
   .award-pill { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(200,169,110,0.3); padding: 0.3rem 0.9rem; display: inline-block; margin-bottom: 0.4rem; }
   .award-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); }
 
+  /* RESEARCH */
+  #research { border-top: 1px solid var(--line); }
+  .research-content { display: flex; flex-direction: column; }
+  .research-topic { padding: 2rem 0 1rem; border-top: 2px solid var(--accent); }
+  .research-topic-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.6rem; }
+  .research-topic-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+  .research-item { padding: 2rem 0; border-top: 1px solid var(--line); }
+  .research-item-meta { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .research-item-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--text); margin: 0 0 0.8rem; }
+  .research-item-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+  .research-gallery { display: flex; flex-wrap: wrap; gap: 6px; background: var(--bg3); padding: 8px; min-height: 120px; align-items: center; justify-content: center; }
+  .research-gallery-empty { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--line2); }
+
+
   /* EXPERIENCE */
   #experience { background: var(--bg2); border-top: 1px solid var(--line); }
   .exp-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; }
@@ -371,42 +383,95 @@
   .hero-content > *:nth-child(3) { animation-delay: 0.35s; }
   .hero-content > *:nth-child(4) { animation-delay: 0.5s; }
 
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; }
-    section { padding: 4rem 2rem; }
-    .about-grid, .exp-grid, .projects-intro, .detail-inner { grid-template-columns: 1fr; gap: 2rem; }
-    #hero { padding: 0 2rem 3rem; }
-    footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
-    .project-item { grid-template-columns: 1fr auto; }
-    .project-tags { display: none; }
-    /* gallery thumbs only */
-    .pm-kpi-row { grid-template-columns: 1fr 1fr; }
-    .role-3col, .stakeholder-grid, .response-grid, .lessons-grid { grid-template-columns: 1fr; }
-    .crisis-box { grid-template-columns: 1fr; gap: 1.2rem; }
-    .outcome-banner { flex-direction: column; }
-    .award-block { text-align: left; }
-  }
+
 
   /* Two-column project categories */
-  .projects-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .projects-col { }
-  .projects-col-header { padding: 1.5rem 0 1rem; border-bottom: 2px solid var(--accent); margin-bottom: 0; }
+  .projects-columns { display: block; }
+  .projects-col { display: contents; }
+  .projects-col-header { display: none; }
   .projects-col-header h3 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
   .projects-col-header p { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin: 0.3rem 0 0; }
-  .projects-col:first-child { border-right: 1px solid var(--line); padding-right: 3rem; }
-  .projects-col:last-child { padding-left: 3rem; }
+  .projects-col:first-child { }
+  .projects-col:last-child { }
 
 
-  @media (max-width: 768px) {
-    .projects-columns { grid-template-columns: 1fr; }
-    .projects-col:first-child { border-right: none; padding-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 2rem; margin-bottom: 2rem; }
-    .projects-col:last-child { padding-left: 0; }
-  }
+
 
   .hero-content { display: flex; align-items: flex-end; justify-content: space-between; gap: 3rem; }
   .hero-text { flex: 1; }
+
+  /* ============================================
+     RESPONSIVE MOBILE — max-width: 768px
+     ============================================ */
   @media (max-width: 768px) {
-    .hero-content { flex-direction: column-reverse; align-items: flex-start; gap: 1.5rem; }
+
+    /* NAV */
+    nav { padding: 1rem 1.5rem; justify-content: space-between; }
+    .nav-logo { display: none; }
+    .nav-links { gap: 1.5rem; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.08em; }
+
+    /* HERO */
+    #hero { min-height: 100svh; padding: 0; }
+    .hero-layout { flex-direction: column; height: 100svh; gap: 0; padding: 0; }
+    .hero-photo-frame { display: none; }
+    .hero-frame-border { display: none; }
+    .hero-text-block { flex: 1; padding: 2rem 1.5rem 3rem; justify-content: flex-end; position: relative; z-index: 3; }
+    h1.hero-name { font-size: clamp(2.2rem, 9vw, 3.5rem); margin-bottom: 1rem; }
+    .hero-job { font-size: 0.68rem; margin-bottom: 1.2rem; }
+    .hero-desc { display: none; }
+    .hero-scroll-btn { font-size: 0.62rem; }
+    .hero-slideshow { display: block; left: 0; top: 0; }
+    .hero-slideshow::after { background: linear-gradient(to left, transparent 40%, var(--bg) 100%), linear-gradient(to bottom, var(--bg) 0%, transparent 12%, transparent 82%, var(--bg) 100%); }
+    .hero-slide-info { bottom: 1.5rem; padding: 0.7rem 1.2rem 0.7rem 2.5rem; }
+    .hero-slide-project { font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .hero-slide-partners-label { font-size: 0.5rem; margin-bottom: 0.3rem; }
+    .hero-slide-logos img { height: 18px; max-width: 50px; }
+
+    /* SECTIONS */
+    section { padding: 3.5rem 1.5rem; }
+    .section-label { margin-bottom: 2rem; font-size: 0.6rem; }
+
+    /* ABOUT */
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-text h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .skills-grid { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .skill-item { font-size: 0.72rem; padding: 0.6rem 0.8rem; }
+
+    /* PROJECTS */
+    .projects-intro { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .projects-intro h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .project-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 1.5rem 0; }
+    .project-tags { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; gap: 0.3rem; }
+    .tag { font-size: 0.55rem; padding: 0.2rem 0.5rem; }
+    .project-info h3 { font-size: 1.25rem; }
+    .detail-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .gallery-thumbs { gap: 4px; }
+    .gallery-thumbs img { width: calc(50% - 4px); height: 120px; }
+
+    /* RESEARCH SECTION */
+    .research-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .research-item { padding: 1.5rem 0; }
+    .research-item-title { font-size: 1.2rem; }
+
+    /* EXPERIENCE */
+    .exp-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    .exp-date { padding-top: 0; font-size: 0.65rem; }
+    .pm-kpi-row { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .role-3col, .stakeholder-grid, .response-grid, .lessons-grid { grid-template-columns: 1fr; }
+    .crisis-box { grid-template-columns: 1fr; gap: 1rem; }
+    .pm-3col { grid-template-columns: 1fr; gap: 1.5rem; }
+    .outcome-banner { flex-direction: column; gap: 1rem; }
+    .award-block { text-align: left; }
+
+    /* FOOTER */
+    footer { padding: 2.5rem 1.5rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+
+    /* LIGHTBOX */
+    .fs-overlay img { max-width: 100vw; max-height: 85vh; }
+    .fs-prev, .fs-next { font-size: 1.2rem; padding: 0.8rem; }
+    .fs-close { font-size: 1.2rem; top: 0.8rem; right: 1rem; }
   }
 </style>
 </head>
@@ -418,7 +483,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="mailto:lahcen.alaoui@gmail.com">Contact</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -430,7 +495,7 @@
   <div class="hero-layout">
     <!-- Photo gauche avec cadre -->
     <div class="hero-photo-frame">
-      <img src="img/img_01_5d1d1580.png" alt="Lahcen Mdarhri Alaoui">
+      <img src="img/img_01_050cf2f2.png" alt="Lahcen Mdarhri Alaoui">
       <div class="hero-frame-border"></div>
     </div>
 
@@ -503,7 +568,7 @@
         <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
       <div class="project-tags">
-        <span class="tag award">AFEX Grand Prix 2023</span>
+        <a class="tag award" href="https://www.afex.fr/actualites-afex/2021/5/20/grand-prix-afex-2023-de-larchitecture-francaise-dans-le-monde-khxgj" target="_blank" rel="noopener" style="text-decoration:none">AFEX Grand Prix 2023 ↗</a>
         <a class="tag pub" href="https://www.archdaily.com/1030378/lycee-descartes-arpio-architects" target="_blank" rel="noopener">Published on ArchDaily ↗</a>
         <span class="tag">6,700 m²</span>
         <span class="tag">$7.8M CAD</span>
@@ -597,7 +662,7 @@
           <!-- PROBLEM 1: COVID / Missing Suppliers -->
           <div class="pm-block" data-viz="covid">
             <div class="pm-heading"><span>01</span> COVID-19 — Site Shutdown & Supplier Loss</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;align-items:start">
+            <div class="pm-3col">
 
               <!-- PROBLEM -->
               <div>
@@ -674,7 +739,7 @@
           <!-- PROBLEM 2: Multi-firm coordination -->
           <div class="pm-block pm-block-alt">
             <div class="pm-heading"><span>02</span> Multi-Firm Coordination — 6 Firms, 1 Site</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;align-items:start">
+            <div class="pm-3col">
 
               <!-- PROBLEM -->
               <div>
@@ -807,7 +872,7 @@
           <!-- PROBLEM 3: Budget under pressure -->
           <div class="pm-block" data-viz="budget">
             <div class="pm-heading"><span>03</span> Budget Control — $7.8M CAD under pressure</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;align-items:start">
+            <div class="pm-3col">
 
               <!-- PROBLEM -->
               <div>
@@ -888,7 +953,7 @@
         <div class="project-meta">Ontario, Canada · 2023–2025 · Retail</div>
         <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
-      <div class="project-tags"><span class="tag">Retail</span><span class="tag">50 Projects</span><span class="tag">$70K–$8M+</span></div>
+      <div class="project-tags"><a class="tag award" href="https://retailawards.ca/awards-of-distinction/" target="_blank" rel="noopener" style="text-decoration:none">Excellence in Retailing Awards ↗</a><span class="tag">Retail</span><span class="tag">50 Projects</span><span class="tag">$70K–$8M+</span></div>
     </div>
     <div class="project-detail" id="detail-3">
 
@@ -954,7 +1019,7 @@
           <!-- BLOCK 01: 3 STAKEHOLDER UNIVERSES -->
           <div class="pm-block">
             <div class="pm-heading"><span>01</span> The Core Challenge — 3 Stakeholder Universes, 1 PM</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;align-items:start">
+            <div class="pm-3col">
 
               <div>
                 <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
@@ -1260,7 +1325,7 @@
           <!-- BLOCK 01: ROI & VIABILITY -->
           <div class="pm-block">
             <div class="pm-heading"><span>01</span> Investor ROI — Making a Remote Desert Resort Financially Viable</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;align-items:start">
+            <div class="pm-3col">
 
               <div>
                 <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
@@ -1401,7 +1466,7 @@
           <!-- BLOCK 02: INFRASTRUCTURE & PHASING -->
           <div class="pm-block pm-block-alt">
             <div class="pm-heading"><span>02</span> Off-Grid Infrastructure — Building Where Nothing Exists</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;align-items:start">
+            <div class="pm-3col">
 
               <div>
                 <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
@@ -1481,7 +1546,7 @@
           <!-- BLOCK 03: PROGRAM COMPLEXITY -->
           <div class="pm-block">
             <div class="pm-heading"><span>03</span> Managing 7 Program Clusters on 1 Remote Site</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;align-items:start">
+            <div class="pm-3col">
 
               <div>
                 <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
@@ -1603,9 +1668,9 @@
     <div class="project-detail" id="detail-1">
       <div class="detail-gallery">
         <div class="gallery-thumbs" id="thumbs-1">
-          <img src="img/img_02_48dda9c5.jpg" alt="Indian Cultural Center — overview" onclick="openInd(0)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Lobby & Yoga/Dance Space" onclick="openInd(1)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Aerial view, Library & Meeting Room" onclick="openInd(2)">
+          <img src="img/img_02_a520aeb3.jpg" alt="Indian Cultural Center — overview" onclick="openInd(0)">
+          <img src="img/img_02_a520aeb3.jpg" alt="Lobby & Yoga/Dance Space" onclick="openInd(1)">
+          <img src="img/img_02_a520aeb3.jpg" alt="Aerial view, Library & Meeting Room" onclick="openInd(2)">
         </div>
 
       <!-- TABS -->
@@ -1658,7 +1723,7 @@
 
           <div class="pm-block">
             <div class="pm-heading"><span>01</span> Conflicting Brief — Cultural Openness vs. Embassy Security</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem">
+            <div class="pm-3col">
               <div>
                 <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
                 <svg viewBox="0 0 200 160" style="width:100%">
@@ -1777,239 +1842,10 @@
     </div>
 
     <!-- PROJECT 3 -->
-    <div class="project-item" onclick="toggleProject(2)">
-      
-      <div class="project-info">
-        <h3>Office Building</h3>
-        <div class="project-meta">Morocco · Commercial · Interior &amp; Architecture</div>
-        <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
-      </div>
-      <div class="project-tags"><span class="tag">Commercial</span><span class="tag">Office</span><span class="tag">ARPIO</span></div>
-    </div>
-    <div class="project-detail" id="detail-2">
-      <div class="detail-gallery">
-        <div class="gallery-thumbs" id="thumbs-2">
-          <img src="img/img_02_48dda9c5.jpg" alt="Office Building — façade" onclick="openOff(0)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Open workspace" onclick="openOff(1)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Meeting room" onclick="openOff(2)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Interior detail" onclick="openOff(3)">
-        </div>
-
-      <!-- TABS -->
-      <div class="detail-tabs" onclick="event.stopPropagation()">
-        <div class="detail-tab active" onclick="switchTab(event,'tab-arch-2')">Architecture</div>
-        <div class="detail-tab" onclick="switchTab(event,'tab-pm-2')">Design Lead</div>
-      </div>
-
-      <!-- TAB: ARCHITECTURE -->
-      <div class="tab-panel active" id="tab-arch-2">
-        <div class="detail-inner">
-          <div class="detail-desc">
-            <p>Contemporary multi-storey office building with a fully glazed curtain-wall façade, designed in partnership with ARPIO Architects. The building combines open-plan workspaces, glass-partitioned meeting rooms, and executive floors.</p>
-            <p>Interior design focuses on natural light penetration, flexible layouts, and high-quality finishes — marble flooring, wood accents, and full-height glazing creating transparency between floors.</p>
-          </div>
-          <div class="partners-block">
-            <div class="partners-label">In Partnership with :</div>
-            <div class="partners-logos">
-              <div class="partner-item">
-                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/ARPIO%20LOGO.png" alt="ARPIO">
-                <span>ARPIO Architecture</span>
-              </div>
-            </div>
-          </div>
-          <div class="detail-stats">
-            <div class="stat-card"><div class="stat-label">Type</div><div class="stat-value">Commercial Office</div></div>
-            <div class="stat-card"><div class="stat-label">Scope</div><div class="stat-value">Architecture + Interior Design</div></div>
-            <div class="stat-card"><div class="stat-label">Partners</div><div class="stat-value">ARPIO Architects</div></div>
-            <div class="stat-card"><div class="stat-label">Location</div><div class="stat-value">Morocco</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB: DESIGN LEAD -->
-      <div class="tab-panel" id="tab-pm-2">
-        <div class="pm-wrap" onclick="event.stopPropagation()">
-          <div class="pm-kpi-row">
-            <div class="pm-kpi"><div class="pm-kpi-label">Role</div><div class="pm-kpi-value gold">Design Lead</div><div class="pm-kpi-sub">Architecture + Interior</div></div>
-            <div class="pm-kpi"><div class="pm-kpi-label">Team managed</div><div class="pm-kpi-value">3</div><div class="pm-kpi-sub">1 intern · 2 technicians</div></div>
-            <div class="pm-kpi"><div class="pm-kpi-label">Challenge</div><div class="pm-kpi-value">2-in-1</div><div class="pm-kpi-sub">Architecture + full interior scope</div></div>
-            <div class="pm-kpi"><div class="pm-kpi-label">Constraint</div><div class="pm-kpi-value">Fast</div><div class="pm-kpi-sub">Compressed design schedule</div></div>
-          </div>
-
-          <div class="pm-block">
-            <div class="pm-heading"><span>01</span> Client Changed Scope Mid-Design — Shell to Full Interior</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem">
-              <div>
-                <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
-                <svg viewBox="0 0 200 160" style="width:100%">
-                  <text x="10" y="14" font-family="DM Sans,sans-serif" font-size="7.5" fill="#888880">Scope doubled mid-DD phase</text>
-                  <rect x="0" y="20" width="200" height="30" rx="3" fill="rgba(196,122,106,0.08)" stroke="#c47a6a" stroke-width="0.8"/>
-                  <text x="10" y="32" font-family="DM Sans,sans-serif" font-size="8" fill="#c47a6a">Original brief</text>
-                  <text x="10" y="43" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Shell + core only — architecture envelope</text>
-                  <line x1="100" y1="50" x2="100" y2="60" stroke="#c47a6a" stroke-width="1" opacity="0.5"/>
-                  <text x="100" y="68" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="#c47a6a">↓ Client added</text>
-                  <rect x="0" y="74" width="200" height="30" rx="3" fill="rgba(196,122,106,0.08)" stroke="#c47a6a" stroke-width="0.8"/>
-                  <text x="10" y="86" font-family="DM Sans,sans-serif" font-size="8" fill="#c47a6a">Revised brief</text>
-                  <text x="10" y="97" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Full interior design — all floors, all finishes</text>
-                  <line x1="10" y1="116" x2="190" y2="116" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
-                  <text x="10" y="130" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c47a6a">Same deadline · same fee · doubled output</text>
-                  <text x="10" y="142" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">No additional time negotiated by client</text>
-                </svg>
-              </div>
-              <div>
-                <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c8a96e;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Action</div>
-                <svg viewBox="0 0 200 160" style="width:100%">
-                  <rect x="0" y="8" width="200" height="26" rx="3" fill="rgba(200,169,110,0.08)" stroke="#c8a96e" stroke-width="0.8"/>
-                  <text x="10" y="19" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Parallel workstreams</text>
-                  <text x="10" y="28" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Architecture + interior run simultaneously</text>
-                  <rect x="0" y="42" width="200" height="26" rx="3" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
-                  <text x="10" y="53" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Intern → interior layouts</text>
-                  <text x="10" y="63" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Briefed on space programme, supervised daily</text>
-                  <rect x="0" y="76" width="200" height="26" rx="3" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
-                  <text x="10" y="87" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Technicians → curtain wall + MEP coordination</text>
-                  <text x="10" y="97" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Façade system details + floor penetrations</text>
-                  <rect x="0" y="110" width="200" height="26" rx="3" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
-                  <text x="10" y="121" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Material library standardized</text>
-                  <text x="10" y="131" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Marble, wood, glass palette — 3 finishes max/floor</text>
-                </svg>
-              </div>
-              <div>
-                <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#7aad8a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Result</div>
-                <svg viewBox="0 0 200 160" style="width:100%">
-                  <rect x="10" y="10" width="84" height="50" rx="3" fill="rgba(122,173,138,0.08)" stroke="rgba(122,173,138,0.2)" stroke-width="0.8"/>
-                  <text x="52" y="32" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" fill="#7aad8a">2×</text>
-                  <text x="52" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#888880">scope delivered</text>
-                  <rect x="106" y="10" width="84" height="50" rx="3" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.2)" stroke-width="0.8"/>
-                  <text x="148" y="32" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" fill="#c8a96e">✓</text>
-                  <text x="148" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#888880">on deadline</text>
-                  <line x1="10" y1="72" x2="190" y2="72" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
-                  <text x="10" y="86" font-family="DM Sans,sans-serif" font-size="7.5" fill="#888880">Team output</text>
-                  <text x="10" y="100" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Intern completed 6 floor interior layouts</text>
-                  <text x="10" y="112" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Technicians: full curtain wall detail package</text>
-                  <text x="10" y="132" font-family="DM Sans,sans-serif" font-size="7.5" fill="#7aad8a">Client approved without revision rounds</text>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    </div>
+    
 
     <!-- PROJECT 5 -->
-    <div class="project-item" onclick="toggleProject(4)">
-      
-      <div class="project-info">
-        <h3>Vertika Residences</h3>
-        <div class="project-meta">Meknès, Morocco · 2021 · High-End Residential</div>
-        <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
-      </div>
-      <div class="project-tags"><span class="tag">Residential</span><span class="tag">10,500 m²</span><span class="tag">$16–19M CAD</span></div>
-    </div>
-    <div class="project-detail" id="detail-4">
-      <div class="detail-gallery">
-        <div class="gallery-thumbs" id="thumbs-4">
-          <img src="img/img_02_48dda9c5.jpg" alt="Vertika Residences — overview" onclick="openVer(0)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Main elevation" onclick="openVer(1)">
-          <img src="img/img_02_48dda9c5.jpg" alt="Ground floor plan" onclick="openVer(2)">
-        </div>
-
-      <!-- TABS -->
-      <div class="detail-tabs" onclick="event.stopPropagation()">
-        <div class="detail-tab active" onclick="switchTab(event,'tab-arch-4')">Architecture</div>
-        <div class="detail-tab" onclick="switchTab(event,'tab-pm-4')">Design Lead</div>
-      </div>
-
-      <!-- TAB: ARCHITECTURE -->
-      <div class="tab-panel active" id="tab-arch-4">
-        <div class="detail-inner">
-          <div class="detail-desc">
-            <p>High-end residential complex in the New City District of Meknès — 54 luxury apartments and penthouses across multiple floors, with ground-floor retail, a lobby lounge, underground parking, rooftop garden, and fitness space.</p>
-            <p>The design explores contemporary urban morphology that maintains human scale while integrating vertical rhythm, natural materials, and urban greenery. Bioclimatic features include passive ventilation, solar water heating, rainwater collection, and a green roof with native vegetation.</p>
-          </div>
-          <div class="detail-stats">
-            <div class="stat-card"><div class="stat-label">Type</div><div class="stat-value">High-End Residential</div></div>
-            <div class="stat-card"><div class="stat-label">Units</div><div class="stat-value">54 apartments + penthouses</div></div>
-            <div class="stat-card"><div class="stat-label">Built Area</div><div class="stat-value">≈ 10,500 m² GFA</div></div>
-            <div class="stat-card"><div class="stat-label">Budget (est.)</div><div class="stat-value">$16.2–19.1M CAD</div></div>
-            <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-value">2021</div></div>
-            <div class="stat-card"><div class="stat-label">Partners</div><div class="stat-value">ARPIO Architects</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB: DESIGN LEAD -->
-      <div class="tab-panel" id="tab-pm-4">
-        <div class="pm-wrap" onclick="event.stopPropagation()">
-          <div class="pm-kpi-row">
-            <div class="pm-kpi"><div class="pm-kpi-label">Role</div><div class="pm-kpi-value gold">Design Lead</div><div class="pm-kpi-sub">Full residential design</div></div>
-            <div class="pm-kpi"><div class="pm-kpi-label">Team managed</div><div class="pm-kpi-value">5</div><div class="pm-kpi-sub">2 interns · 2 technicians · 1 draftsperson</div></div>
-            <div class="pm-kpi"><div class="pm-kpi-label">Units</div><div class="pm-kpi-value">54</div><div class="pm-kpi-sub">Apartments + penthouses</div></div>
-            <div class="pm-kpi"><div class="pm-kpi-label">Constraint</div><div class="pm-kpi-value">Repeat</div><div class="pm-kpi-sub">54 unique unit variations</div></div>
-          </div>
-
-          <div class="pm-block">
-            <div class="pm-heading"><span>01</span> 54 Units, 12 Typologies — Managing Design Consistency at Scale</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem">
-              <div>
-                <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c47a6a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Problem</div>
-                <svg viewBox="0 0 200 160" style="width:100%">
-                  <text x="10" y="14" font-family="DM Sans,sans-serif" font-size="7.5" fill="#888880">Scale + consistency across 54 units</text>
-                  <rect x="0" y="20" width="200" height="30" rx="3" fill="rgba(196,122,106,0.08)" stroke="#c47a6a" stroke-width="0.8"/>
-                  <text x="10" y="32" font-family="DM Sans,sans-serif" font-size="8" fill="#c47a6a">12 unit typologies</text>
-                  <text x="10" y="42" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Studio · 1BR · 2BR · 3BR · penthouse variations</text>
-                  <rect x="0" y="58" width="200" height="30" rx="3" fill="rgba(196,122,106,0.08)" stroke="#c47a6a" stroke-width="0.8"/>
-                  <text x="10" y="70" font-family="DM Sans,sans-serif" font-size="8" fill="#c47a6a">Developer pressure</text>
-                  <text x="10" y="80" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Maximize sellable area · minimize corridor waste</text>
-                  <rect x="0" y="96" width="200" height="30" rx="3" fill="rgba(196,122,106,0.08)" stroke="#c47a6a" stroke-width="0.8"/>
-                  <text x="10" y="108" font-family="DM Sans,sans-serif" font-size="8" fill="#c47a6a">Bioclimatic requirements</text>
-                  <text x="10" y="118" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Every unit needs cross-ventilation + solar orientation</text>
-                  <text x="10" y="148" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c47a6a">3 conflicting forces on every floor plate</text>
-                </svg>
-              </div>
-              <div>
-                <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#c8a96e;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Action</div>
-                <svg viewBox="0 0 200 160" style="width:100%">
-                  <rect x="0" y="8" width="200" height="26" rx="3" fill="rgba(200,169,110,0.08)" stroke="#c8a96e" stroke-width="0.8"/>
-                  <text x="10" y="19" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Modular unit catalogue</text>
-                  <text x="10" y="28" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">12 base typologies — interns adapt per floor</text>
-                  <rect x="0" y="42" width="200" height="26" rx="3" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
-                  <text x="10" y="53" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Design guidelines document</text>
-                  <text x="10" y="63" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">LMA wrote 8-page brief for team — no freestyle</text>
-                  <rect x="0" y="76" width="200" height="26" rx="3" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
-                  <text x="10" y="87" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Technicians → structural + bioclimatic checks</text>
-                  <text x="10" y="97" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">Each unit verified: ventilation path + solar access</text>
-                  <rect x="0" y="110" width="200" height="26" rx="3" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
-                  <text x="10" y="121" font-family="DM Sans,sans-serif" font-size="7.5" fill="#c8a96e">Weekly QA review</text>
-                  <text x="10" y="131" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">LMA reviewed all drawings before ARPIO submission</text>
-                </svg>
-              </div>
-              <div>
-                <div style="font-size:1rem;letter-spacing:0.18em;text-transform:uppercase;color:#7aad8a;margin-bottom:0.8rem;font-family:'Cormorant Garamond',serif;font-weight:700">Result</div>
-                <svg viewBox="0 0 200 160" style="width:100%">
-                  <rect x="10" y="10" width="84" height="50" rx="3" fill="rgba(122,173,138,0.08)" stroke="rgba(122,173,138,0.2)" stroke-width="0.8"/>
-                  <text x="52" y="32" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" fill="#7aad8a">54</text>
-                  <text x="52" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#888880">units coordinated</text>
-                  <rect x="106" y="10" width="84" height="50" rx="3" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.2)" stroke-width="0.8"/>
-                  <text x="148" y="32" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="22" fill="#c8a96e">100%</text>
-                  <text x="148" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#888880">bioclimatic compliant</text>
-                  <line x1="10" y1="72" x2="190" y2="72" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
-                  <text x="10" y="86" font-family="DM Sans,sans-serif" font-size="7.5" fill="#888880">Team output</text>
-                  <text x="10" y="100" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">2 interns: floor plans for 8 floors supervised</text>
-                  <text x="10" y="112" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">2 technicians: structural grid + MEP shafts</text>
-                  <text x="10" y="124" font-family="DM Sans,sans-serif" font-size="7" fill="#888880">1 draftsperson: full CD package + permit set</text>
-                  <text x="10" y="148" font-family="DM Sans,sans-serif" font-size="7.5" fill="#7aad8a">Zero design inconsistencies across 54 units</text>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
+    
   <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line);text-align:center">
     <p style="font-family:'Jost',sans-serif;font-size:0.78rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.8rem">Plans · Sections · Elevations · Full Documentation</p>
     <a href="https://www.calameo.com/read/0073489080cbbd0063b8f" target="_blank" rel="noopener"
@@ -2021,6 +1857,89 @@
   </div>
 
 </section>
+
+<section id="research">
+  <div class="section-label">Architectural Research</div>
+  <div class="research-content">
+
+      <!-- MOROCCAN MODERNISM -->
+      <div class="research-topic">
+        <div class="research-topic-label">Moroccan Modernism</div>
+        <p class="research-topic-sub">Advocacy and documentation of Morocco's 20th-century modernist architectural heritage — through workshops, site visits, and public outreach.</p>
+      </div>
+
+      <!-- PROJECT: ACP -->
+      <div class="research-item">
+        <div class="research-item-header">
+          <div class="research-item-meta">Workshop · Aziza Chaouni Projects</div>
+          <h3 class="research-item-title">Moroccan Modernism — Heritage Workshops</h3>
+          <p class="research-item-desc">Co-organized and facilitated heritage workshops in partnership with Aziza Chaouni Projects (ACP), focused on raising awareness around Morocco's modernist architectural legacy. Activities included site documentation, guided tours, and public engagement sessions.</p>
+        </div>
+        <div class="redetail-gallery">
+          <div class="gallery-thumbs">
+            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20TEDx.jpg" alt="Heritage Workshop" onclick="openLightbox(this)">
+            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20Workshop.jpeg" alt="Heritage Workshop" onclick="openLightbox(this)">
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT: MAMMA -->
+      <div class="research-item">
+        <div class="research-item-header">
+          <div class="research-item-meta">Workshop · MAMMA Group</div>
+          <h3 class="research-item-title">Moroccan Modernism — MAMMA Initiative</h3>
+          <p class="research-item-desc">Active contributor to the MAMMA Group (Mouvement pour l'Architecture Moderniste Marocaine) — co-organized documentation events, guided tours, and roundtable discussions on the preservation of Morocco's modern built heritage.</p>
+        </div>
+        <div class="redetail-gallery">
+          <div class="gallery-thumbs">
+            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
+            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpg" alt="MAMMA Group" onclick="openLightbox(this)">
+            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(2).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
+            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(3).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
+          </div>
+        </div>
+      </div>
+
+      <!-- TEACHING -->
+      <div class="research-item" style="border-top: 2px solid var(--accent); margin-top:3rem">
+        <div class="research-item-header">
+          <div class="research-topic-label" style="margin-top:1.5rem">Teaching</div>
+          <p class="research-item-desc">Studio workshop facilitation, project reviews, and skills transmission in architectural drawing, 3D modelling, and graphic representation.</p>
+        </div>
+        <div class="detail-gallery">
+          <div class="gallery-thumbs">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/20260211_112212%20(1).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(1).jpg" alt="Teaching 1" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(2).jpg" alt="Teaching 2" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(3).jpg" alt="Teaching 3" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(4).jpg" alt="Teaching 4" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(5).jpg" alt="Teaching 5" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(6).jpg" alt="Teaching 6" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(7).jpg" alt="Teaching 7" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(8).jpg" alt="Teaching 8" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(9).jpg" alt="Teaching 9" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(10).jpg" alt="Teaching 10" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(11).jpg" alt="Teaching 11" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(12).jpg" alt="Teaching 12" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(1).jpg" alt="Teaching 1" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(2).jpg" alt="Teaching 2" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(3).jpg" alt="Teaching 3" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(4).jpg" alt="Teaching 4" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(5).jpg" alt="Teaching 5" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(6).jpg" alt="Teaching 6" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(7).jpg" alt="Teaching 7" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(8).jpg" alt="Teaching 8" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(9).jpg" alt="Teaching 9" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(10).jpg" alt="Teaching 10" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(11).jpg" alt="Teaching 11" onclick="openLightbox(this)">
+          </div>
+        </div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;padding-left:0.2rem">* Concrete structural system course.</p>
+      </div>
+
+  </div>
+</section>
+
 
 <section id="experience">
 <div class="section-label">Experience</div>
@@ -2234,7 +2153,7 @@
   </div>
 </section>
 
-<footer>
+<footer id="contact">
   <div class="footer-name">Mdarhri Alaoui Lahcen</div>
   <div class="footer-note">Portfolio 2026 · Architectural Designer &amp; Project Manager</div>
   <a href="mailto:lahcen.alaoui@gmail.com" class="footer-email">lahcen.alaoui@gmail.com</a>
@@ -2282,6 +2201,14 @@
         partners: [
           { logo: BASE + 'ARPIO%20LOGO.png', name: 'ARPIO Architecture' }
         ]
+      },
+      {
+        src: BASE + 'Moi%20TEDx.jpg',
+        name: 'Moroccan Modernism Initiative',
+        partners: [
+          { logo: BASE + 'AZIZA%20LOGO.png', name: 'Aziza Chaouni Projects' }
+        ],
+        position: 'left center'
       }
     ];
 
@@ -2301,6 +2228,7 @@
       const img = document.createElement('img');
       img.src = f.src;
       img.alt = f.name;
+      if (f.position) img.style.objectPosition = f.position;
       slide.appendChild(img);
 
       const info = document.createElement('div');
@@ -2364,21 +2292,26 @@
     const columns = document.querySelector('.projects-columns');
     document.querySelectorAll('.project-detail').forEach(d => d.classList.remove('open'));
     document.querySelectorAll('.project-item').forEach(d => d.classList.remove('active'));
-    document.querySelectorAll('.projects-col').forEach(d => d.classList.remove('active-col'));
     columns.classList.remove('has-focus');
-    columns.style.gridTemplateColumns = '';
     if (!isOpen) {
       detail.classList.add('open');
       const item = detail.previousElementSibling;
       item.classList.add('active');
-      const col = item.closest('.projects-col');
-      col.classList.add('active-col');
       columns.classList.add('has-focus');
-      const colIdx = Array.from(document.querySelectorAll('.projects-col')).indexOf(col);
-      columns.style.gridTemplateColumns = colIdx === 0 ? '1fr 0fr' : '0fr 1fr';
       detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
+
+  // Close open project when clicking outside
+  document.addEventListener('click', function(e) {
+    const columns = document.querySelector('.projects-columns');
+    if (!columns || !columns.classList.contains('has-focus')) return;
+    if (!e.target.closest('.project-item') && !e.target.closest('.project-detail')) {
+      document.querySelectorAll('.project-detail').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.project-item').forEach(d => d.classList.remove('active'));
+      columns.classList.remove('has-focus');
+    }
+  });
 
   function toggleExpDetails(btn) {
     const details = btn.nextElementSibling;
@@ -2425,7 +2358,7 @@
 </div>
 
 <script>
-var _fsImgs = [{src:"img/img_03_9ba08b8b.jpg",alt:"Patio"},{src:"img/img_03_9ba08b8b.jpg",alt:"Patio planté"},{src:"img/img_03_9ba08b8b.jpg",alt:"Robe rouge"},{src:"img/img_03_9ba08b8b.jpg",alt:"Frondaison"},{src:"img/img_03_9ba08b8b.jpg",alt:"Salle polyvalente"},{src:"img/img_03_9ba08b8b.jpg",alt:"Façade salle polyvalente"},{src:"img/img_03_9ba08b8b.jpg",alt:"Gradin rétractable"},{src:"img/img_03_9ba08b8b.jpg",alt:"Patio escalier"},{src:"img/img_03_9ba08b8b.jpg",alt:"Vue campus"},{src:"img/img_03_9ba08b8b.jpg",alt:"Vue ensemble"}];
+var _fsImgs = [{src:"img/img_03_ae3e0cf6.jpg",alt:"Patio"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Patio planté"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Robe rouge"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Frondaison"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Salle polyvalente"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Façade salle polyvalente"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Gradin rétractable"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Patio escalier"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Vue campus"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Vue ensemble"}];
 var _fsIdx = 0;
 function openFS(i){ _fsIdx=i; document.getElementById('fsImg').src=_fsImgs[i].src; document.getElementById('fsCounter').textContent=(i+1)+' / '+_fsImgs.length; document.getElementById('fsOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeFS(){ document.getElementById('fsOverlay').classList.remove('open'); document.body.style.overflow=''; }
@@ -2435,12 +2368,10 @@ document.getElementById('fsOverlay').addEventListener('click',function(e){ if(e.
 </script>
 
 <script>
-var _imgs_des = [{src:"img/img_03_9ba08b8b.jpg",alt:"Patio"},{src:"img/img_03_9ba08b8b.jpg",alt:"Patio planté"},{src:"img/img_03_9ba08b8b.jpg",alt:"Robe rouge"},{src:"img/img_03_9ba08b8b.jpg",alt:"Frondaison"},{src:"img/img_03_9ba08b8b.jpg",alt:"Salle polyvalente"},{src:"img/img_03_9ba08b8b.jpg",alt:"Façade salle polyvalente"},{src:"img/img_03_9ba08b8b.jpg",alt:"Gradin rétractable"},{src:"img/img_03_9ba08b8b.jpg",alt:"Patio escalier"},{src:"img/img_03_9ba08b8b.jpg",alt:"Vue campus"},{src:"img/img_03_9ba08b8b.jpg",alt:"Vue ensemble"}];
-var _imgs_ind = [{src:"img/img_02_48dda9c5.jpg",alt:"Indian Cultural Center — overview"},{src:"img/img_02_48dda9c5.jpg",alt:"Lobby & Yoga/Dance Space"},{src:"img/img_02_48dda9c5.jpg",alt:"Aerial view, Library & Meeting Room"}];
-var _imgs_off = [{src:"img/img_02_48dda9c5.jpg",alt:"Office Building — façade"},{src:"img/img_02_48dda9c5.jpg",alt:"Open workspace"},{src:"img/img_02_48dda9c5.jpg",alt:"Meeting room"},{src:"img/img_02_48dda9c5.jpg",alt:"Interior detail"}];
-var _imgs_fb = [{src:"img/img_03_9ba08b8b.jpg",alt:"Farm Boy exterior — Ottawa"},{src:"img/img_03_9ba08b8b.jpg",alt:"Farm Boy stores across Ontario"},{src:"img/img_03_9ba08b8b.jpg",alt:"Fresh Sushi & Bake Shop departments"},{src:"img/img_03_9ba08b8b.jpg",alt:"Deli, Cheese & Station Grill departments"}];
-var _imgs_ver = [{src:"img/img_02_48dda9c5.jpg",alt:"Vertika Residences — overview"},{src:"img/img_02_48dda9c5.jpg",alt:"Main elevation"},{src:"img/img_02_48dda9c5.jpg",alt:"Ground floor plan"}];
-var _imgs_mir = [{src:"img/img_03_9ba08b8b.jpg",alt:"Pool terrace with olive trees — Agafay"},{src:"img/img_03_9ba08b8b.jpg",alt:"Villa terrace & private pool at sunset"},{src:"img/img_03_9ba08b8b.jpg",alt:"Aerial view — terraced resort masterplan"},{src:"img/img_03_9ba08b8b.jpg",alt:"Infinity pool overlooking Atlas Mountains"},{src:"img/img_03_9ba08b8b.jpg",alt:"Suite bedroom — Moroccan craftsmanship"},{src:"img/img_03_9ba08b8b.jpg",alt:"Living room — traditional & contemporary"}];
+var _imgs_des = [{src:"img/img_03_ae3e0cf6.jpg",alt:"Patio"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Patio planté"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Robe rouge"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Frondaison"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Salle polyvalente"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Façade salle polyvalente"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Gradin rétractable"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Patio escalier"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Vue campus"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Vue ensemble"}];
+var _imgs_ind = [{src:"img/img_02_a520aeb3.jpg",alt:"Indian Cultural Center — overview"},{src:"img/img_02_a520aeb3.jpg",alt:"Lobby & Yoga/Dance Space"},{src:"img/img_02_a520aeb3.jpg",alt:"Aerial view, Library & Meeting Room"}];var _imgs_fb = [{src:"img/img_03_ae3e0cf6.jpg",alt:"Farm Boy exterior — Ottawa"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Farm Boy stores across Ontario"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Fresh Sushi & Bake Shop departments"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Deli, Cheese & Station Grill departments"}];
+var _imgs_ver = [{src:"img/img_02_a520aeb3.jpg",alt:"Vertika Residences — overview"},{src:"img/img_02_a520aeb3.jpg",alt:"Main elevation"},{src:"img/img_02_a520aeb3.jpg",alt:"Ground floor plan"}];
+var _imgs_mir = [{src:"img/img_03_ae3e0cf6.jpg",alt:"Pool terrace with olive trees — Agafay"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Villa terrace & private pool at sunset"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Aerial view — terraced resort masterplan"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Infinity pool overlooking Atlas Mountains"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Suite bedroom — Moroccan craftsmanship"},{src:"img/img_03_ae3e0cf6.jpg",alt:"Living room — traditional & contemporary"}];
 function _openGal(arr, i) {
   _fsImgs = arr; _fsIdx = i;
   document.getElementById('fsImg').src = arr[i].src;
@@ -2450,10 +2381,18 @@ function _openGal(arr, i) {
 }
 function openDes(i){ _openGal(_imgs_des, i); }
 function openInd(i){ _openGal(_imgs_ind, i); }
-function openOff(i){ _openGal(_imgs_off, i); }
 function openFB(i) { _openGal(_imgs_fb,  i); }
 function openVer(i){ _openGal(_imgs_ver, i); }
 function openMir(i){ _openGal(_imgs_mir, i); }
+function openLightbox(el){
+  var thumbs = el.closest('.gallery-thumbs');
+  if(!thumbs) return;
+  var imgs = Array.from(thumbs.querySelectorAll('img'));
+  _fsImgs = imgs.map(function(img){ return {src: img.src, alt: img.alt || ''}; });
+  _fsIdx = imgs.indexOf(el);
+  if(_fsIdx < 0) _fsIdx = 0;
+  openFS(_fsIdx);
+}
 
 var _fbIdx = 0;
 
