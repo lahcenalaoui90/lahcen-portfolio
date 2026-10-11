@@ -535,14 +535,41 @@
   .about-photo-card > img { transition: filter 0.8s; }
   .about-photo-card:hover > img { filter: grayscale(100%) contrast(1.08); }
 
-  .project-item, .research-card { transition: opacity 0.35s ease, border-color 0.35s ease, transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out); }
-  .project-item:hover, .research-card:hover { box-shadow: 0 18px 40px rgba(26,24,20,0.10); transform: translateY(-6px); }
-  .project-thumb, .research-thumb { position: relative; }
-  .project-thumb img, .research-thumb img { transition: transform 1s var(--ease-out); }
-  .project-item:hover .project-thumb img, .research-card:hover .research-thumb img { transform: scale(1.08); }
-  .project-thumb::after, .research-thumb::after { content: 'View project \2192'; position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 1.2rem 1.4rem; background: linear-gradient(to top, rgba(26,24,20,0.65), transparent 60%); color: #fff; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; translate: 0 10px; transition: opacity 0.5s var(--ease-out), translate 0.5s var(--ease-out); pointer-events: none; }
-  .research-thumb::after { content: 'Explore \2192'; }
-  .project-item:hover .project-thumb::after, .research-card:hover .research-thumb::after { opacity: 1; translate: 0 0; }
+  /* CARDS — full-bleed image with overlaid caption */
+  .project-list, .research-list { gap: 1.25rem; counter-reset: card; }
+  .project-item, .research-card { counter-increment: card; aspect-ratio: 4 / 3; border: none; border-radius: 18px; background: #1a1814; isolation: isolate; transition: opacity 0.35s ease, transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out); }
+  .project-item:hover, .research-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -12px rgba(26,24,20,0.35); }
+  .project-thumb, .research-thumb { position: absolute; inset: 0; height: 100%; z-index: -1; }
+  .project-thumb img, .research-thumb img { transition: transform 1.2s var(--ease-out), filter 0.8s; filter: saturate(0.9); }
+  .project-item:hover .project-thumb img, .research-card:hover .research-thumb img { transform: scale(1.07); filter: saturate(1.05); }
+  .project-thumb::after, .research-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,16,13,0.88) 0%, rgba(18,16,13,0.35) 38%, rgba(18,16,13,0) 62%); transition: opacity 0.6s; }
+  .project-item::before, .research-card::before { content: counter(card, decimal-leading-zero); position: absolute; top: 1.2rem; left: 1.4rem; font-size: 0.68rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.9); padding: 0.35rem 0.75rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; backdrop-filter: blur(8px); background: rgba(18,16,13,0.3); }
+
+  .project-info, .research-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 5rem 1.5rem 1.6rem; display: flex; flex-direction: column-reverse; gap: 0.45rem; transition: translate 0.6s var(--ease-out); }
+  .project-item:hover .project-info, .research-card:hover .research-info { translate: 0 -4px; }
+  .project-info h3, .research-card-title { font-family: 'DM Sans', sans-serif; font-size: clamp(1.15rem, 1.7vw, 1.55rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; color: #fff; margin: 0; }
+  .project-info h3 { order: 1; }
+  .project-info .project-meta, .research-meta { order: 2; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin: 0; }
+  .project-info .project-meta::before, .research-meta::before { content: ''; display: inline-block; width: 1.4rem; height: 1px; background: var(--accent); vertical-align: middle; margin-right: 0.6rem; transition: width 0.6s var(--ease-out); }
+  .project-item:hover .project-meta::before, .research-card:hover .research-meta::before { width: 2.4rem; }
+
+  .project-hint { position: absolute; bottom: 1.5rem; right: 1.4rem; margin: 0; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: rgba(18,16,13,0.3); border: 1px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); font-size: 0; justify-content: center; transition: background 0.4s, border-color 0.4s, transform 0.6s var(--ease-out); }
+  .project-hint-icon { font-size: 1.2rem; color: #fff; }
+  .research-card::after { content: '\2192'; position: absolute; bottom: 1.5rem; right: 1.4rem; width: 2.6rem; height: 2.6rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; background: rgba(18,16,13,0.3); border: 1px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); transition: background 0.4s, border-color 0.4s, transform 0.6s var(--ease-out); }
+  .project-item:hover .project-hint, .research-card:hover::after { background: var(--accent); border-color: var(--accent); }
+  .project-item:hover .project-hint { transform: rotate(90deg); }
+  .research-card:hover::after { transform: translateX(3px); }
+  .project-item.active .project-hint, .research-card.active::after { background: var(--accent); border-color: var(--accent); }
+  .project-item.active .project-hint-icon { color: #fff; }
+  .projects-columns.has-focus .project-item.active, .project-item.active, .research-card.active { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+
+  .project-detail, .research-detail { border-radius: 18px; }
+  @media (max-width: 768px) {
+    .research-list { grid-template-columns: 1fr; }
+    .project-item, .research-card { border-radius: 14px; }
+    .project-info, .research-info { padding: 1.2rem 4.2rem 1.2rem 1.2rem; }
+    .project-hint, .research-card::after { bottom: 1.2rem; right: 1.1rem; }
+  }
   .project-detail.open, .research-detail.open { animation: detailIn 0.6s var(--ease-out); }
 
   .exp-item { transition: padding-left 0.4s var(--ease-out), background 0.4s; }
