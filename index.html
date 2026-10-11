@@ -87,14 +87,16 @@
   .projects-intro { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
   .projects-intro h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; color: var(--white); line-height: 1.1; }
   .projects-intro p { color: var(--muted); font-size: 0.88rem; max-width: 42ch; }
-  .project-list { display: flex; flex-direction: column; }
-  .project-item { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding: 2rem 0; border-top: 1px solid var(--line); cursor: pointer; transition: all 0.3s; }
-  .project-item:last-of-type { border-bottom: 1px solid var(--line); }
-  .project-item:hover { padding-left: 1rem; }
-  .project-item:hover .project-num { color: var(--accent); }
-  .project-num { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--muted); transition: color 0.3s; }
-  .project-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; line-height: 1.2; }
-  .project-info .project-meta { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .project-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .project-item { position: relative; overflow: hidden; cursor: pointer; background: var(--bg3); border: 1px solid var(--line); transition: border-color 0.3s, transform 0.3s; display: block; padding: 0; }
+  .project-item:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .project-thumb { width: 100%; height: 240px; overflow: hidden; display: block; }
+  .project-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); display: block; }
+  .project-item:hover .project-thumb img { transform: scale(1.04); }
+  .project-num { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: var(--muted); }
+  .project-info { padding: 1.2rem 1.4rem 1.4rem; }
+  .project-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; line-height: 1.2; }
+  .project-info .project-meta { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   .project-hint { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); pointer-events: none; }
   .project-hint-icon { font-size: 0.85rem; line-height: 1; color: var(--accent); transition: transform 0.3s; }
   .project-item.active .project-hint-icon { transform: rotate(45deg); }
@@ -441,10 +443,10 @@
     /* PROJECTS */
     .projects-intro { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
     .projects-intro h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-    .project-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 1.5rem 0; }
+    .project-item { transform: none !important; }
     .project-tags { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; gap: 0.3rem; }
     .tag { font-size: 0.55rem; padding: 0.2rem 0.5rem; }
-    .project-info h3 { font-size: 1.25rem; }
+    .project-list { grid-template-columns: 1fr; } .project-info h3 { font-size: 1.1rem; }
     .detail-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .gallery-thumbs { gap: 4px; }
     .gallery-thumbs img { width: calc(50% - 4px); height: 120px; }
@@ -561,18 +563,13 @@
         </div>
 <!-- PROJECT 1 — DESCARTES -->
     <div class="project-item" onclick="toggleProject(0)">
-      
+      <div class="project-thumb"><img src="Hero Descartes.jpg" alt="" loading="lazy"></div>
       <div class="project-info">
         <h3>Extension Descartes High School</h3>
         <div class="project-meta">Rabat, Morocco · 2017–2022 · Education</div>
         <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
-      <div class="project-tags">
-        <a class="tag award" href="https://www.afex.fr/actualites-afex/2021/5/20/grand-prix-afex-2023-de-larchitecture-francaise-dans-le-monde-khxgj" target="_blank" rel="noopener" style="text-decoration:none">AFEX Grand Prix 2023 ↗</a>
-        <a class="tag pub" href="https://www.archdaily.com/1030378/lycee-descartes-arpio-architects" target="_blank" rel="noopener">Published on ArchDaily ↗</a>
-        <span class="tag">6,700 m²</span>
-        <span class="tag">$7.8M CAD</span>
-      </div>
+      
     </div>
     <div class="project-detail" id="detail-0">
       <!-- GALLERY -->
@@ -947,13 +944,13 @@
 
     <!-- PROJECT 4 -->
     <div class="project-item" onclick="toggleProject(3)">
-      
+      <div class="project-thumb"><img src="Hero Farmboy.jpg" alt="" loading="lazy"></div>
       <div class="project-info">
         <h3>Farm Boy — Store Planning & Design</h3>
         <div class="project-meta">Ontario, Canada · 2023–2025 · Retail</div>
         <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
-      <div class="project-tags"><a class="tag award" href="https://retailawards.ca/awards-of-distinction/" target="_blank" rel="noopener" style="text-decoration:none">Excellence in Retailing Awards ↗</a><span class="tag">Retail</span><span class="tag">50 Projects</span><span class="tag">$70K–$8M+</span></div>
+      
     </div>
     <div class="project-detail" id="detail-3">
 
@@ -1257,13 +1254,13 @@
 
     <!-- PROJECT 6 -->
     <div class="project-item" onclick="toggleProject(5)">
-      
+      <div class="project-thumb"><img src="Hero Ecolodge.png" alt="" loading="lazy"></div>
       <div class="project-info">
         <h3>Amber Mirage Resort</h3>
         <div class="project-meta">Agafay–Marrakech, Morocco · 2021 · Luxury Eco-Resort</div>
         <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
-      <div class="project-tags"><span class="tag">Hospitality</span><span class="tag">9,800 m²</span><span class="tag">€30–34M</span></div>
+      
     </div>
     <div class="project-detail" id="detail-5">
 
@@ -1657,13 +1654,13 @@
         </div>
 <!-- PROJECT 2 -->
     <div class="project-item" onclick="toggleProject(1)">
-      
+      <div class="project-thumb"><img src="Hero Embassy.png" alt="" loading="lazy"></div>
       <div class="project-info">
         <h3>Indian Cultural Center &amp; Embassy Residences</h3>
         <div class="project-meta">Rabat, Morocco · 2018 · Cultural &amp; Diplomatic</div>
         <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
-      <div class="project-tags"><span class="tag">Cultural</span><span class="tag">3,700 m²</span><span class="tag">€3.3M</span></div>
+      
     </div>
     <div class="project-detail" id="detail-1">
       <div class="detail-gallery">
