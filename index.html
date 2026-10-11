@@ -509,8 +509,7 @@
   .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: right; transition: transform 0.45s var(--ease-out); }
   .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); transform-origin: left; }
 
-  .hero-slideshow { will-change: transform; inset: -18vh 0; }
-  #about { padding-top: 8rem; }
+  .hero-slideshow { will-change: transform; }
   .hero-slide > img { transform: scale(1.12); transition: transform 7s linear; }
   .hero-slide.active > img { transform: scale(1); }
   .hero-slide-info { opacity: 0; translate: 30px 0; transition: opacity 0.8s var(--ease-out) 0.4s, translate 0.8s var(--ease-out) 0.4s; }
@@ -567,7 +566,6 @@
   .project-detail, .research-detail { border-radius: 18px; }
   @media (max-width: 768px) {
     .research-list { grid-template-columns: 1fr; }
-    #about { padding-top: 6.5rem; }
     .project-item, .research-card { border-radius: 14px; }
     .project-info, .research-info { padding: 1.2rem 4.2rem 1.2rem 1.2rem; }
     .project-hint, .research-card::after { bottom: 1.2rem; right: 1.1rem; }
@@ -600,7 +598,7 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <nav id="navbar">
-  <a href="#about" class="nav-logo">LMA</a>
+  <a href="#hero" class="nav-logo">LMA</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -608,6 +606,22 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-slideshow" id="heroSlideshow"></div>
+  <div class="hero-pattern" id="heroPattern"></div>
+
+  <div class="hero-layout">
+    <!-- Texte -->
+    <div class="hero-text-block">
+      <a class="hero-scroll-btn" href="#projects">
+        <span class="hero-scroll-arrow">↓</span>
+        <span>Scroll Down</span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <section id="about">
   <div class="section-label">About</div>
@@ -654,23 +668,6 @@
 
   </div>
 </section>
-
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-slideshow" id="heroSlideshow"></div>
-  <div class="hero-pattern" id="heroPattern"></div>
-
-  <div class="hero-layout">
-    <!-- Texte -->
-    <div class="hero-text-block">
-      <a class="hero-scroll-btn" href="#projects">
-        <span class="hero-scroll-arrow">↓</span>
-        <span>Scroll Down</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 
 <section id="projects">
   <div class="section-label">Selected Works</div>
@@ -1557,17 +1554,13 @@ var _fbIdx = 0;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const progress = document.getElementById('scrollProgress');
   const slideshow = document.getElementById('heroSlideshow');
-  const hero = document.getElementById('hero');
 
   let ticking = false;
   function onScroll() {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
-    if (!reduceMotion) {
-      const r = hero.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < window.innerHeight) {
-        slideshow.style.transform = 'translateY(' + (-r.top * 0.15) + 'px)';
-      }
+    if (!reduceMotion && window.scrollY < window.innerHeight) {
+      slideshow.style.transform = 'translateY(' + window.scrollY * 0.3 + 'px)';
     }
     ticking = false;
   }
