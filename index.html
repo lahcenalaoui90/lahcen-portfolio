@@ -20,9 +20,9 @@
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 15px; line-height: 1.75; overflow-x: hidden; }
 
   /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: flex-end; padding: 1.5rem 4rem; border-bottom: 1px solid transparent; transition: all 0.4s; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 4rem; border-bottom: 1px solid transparent; transition: all 0.4s; }
   nav.scrolled { background: rgba(245,242,237,0.95); border-bottom-color: var(--line); backdrop-filter: blur(12px); }
-  .nav-logo { display: none; }
+  .nav-logo { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; letter-spacing: 0.18em; color: var(--text); text-decoration: none; font-weight: 600; }
   .nav-links { display: flex; gap: 3.5rem; list-style: none; }
   .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; font-weight: 500; }
   .nav-links a:hover { color: var(--text); }
@@ -504,7 +504,6 @@
   <div class="hero-layout">
     <!-- Texte -->
     <div class="hero-text-block">
-      <div class="hero-job">Architectural Designer &amp; Project Manager</div>
       <a class="hero-scroll-btn" href="#projects">
         <span class="hero-scroll-arrow">↓</span>
         <span>Scroll Down</span>
