@@ -334,16 +334,19 @@
 
   /* RESEARCH */
   #research { border-top: 1px solid var(--line); }
-  .research-content { display: flex; flex-direction: column; }
-  .research-topic { padding: 2rem 0 1rem; border-top: 2px solid var(--accent); }
-  .research-topic-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.6rem; }
-  .research-topic-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
-  .research-item { padding: 2rem 0; border-top: 1px solid var(--line); }
-  .research-item-meta { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-  .research-item-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--text); margin: 0 0 0.8rem; }
-  .research-item-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
-  .research-gallery { display: flex; flex-wrap: wrap; gap: 6px; background: var(--bg3); padding: 8px; min-height: 120px; align-items: center; justify-content: center; }
-  .research-gallery-empty { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--line2); }
+  .research-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .research-card { position: relative; overflow: hidden; cursor: pointer; background: var(--bg3); border: 1px solid var(--line); transition: border-color 0.3s, transform 0.3s; display: block; padding: 0; }
+  .research-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .research-thumb { width: 100%; height: 240px; overflow: hidden; display: block; }
+  .research-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); display: block; }
+  .research-card:hover .research-thumb img { transform: scale(1.04); }
+  .research-info { padding: 1.2rem 1.5rem 1.4rem; }
+  .research-meta { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .research-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; color: var(--text); margin: 0; line-height: 1.3; }
+  .research-detail { display: none; background: var(--bg3); border: 1px solid var(--line2); overflow: hidden; grid-column: 1 / -1; }
+  .research-detail.open { display: block; }
+  .research-detail-inner { padding: 2rem 2.5rem; }
+  .research-detail-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; max-width: 720px; }
 
 
   /* EXPERIENCE */
@@ -853,54 +856,64 @@
 
 <section id="research">
   <div class="section-label">Architectural Research</div>
-  <div class="research-content">
+  <div class="research-list">
 
-      <!-- MOROCCAN MODERNISM -->
-      <div class="research-topic">
-        <div class="research-topic-label">Moroccan Modernism</div>
-        <p class="research-topic-sub">Advocacy and documentation of Morocco's 20th-century modernist architectural heritage — through workshops, site visits, and public outreach.</p>
+    <!-- CARD 0: ACP -->
+    <div class="research-card" onclick="toggleResearch(0)">
+      <div class="research-thumb"><img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20TEDx.jpg" alt="Heritage Workshop" loading="lazy"></div>
+      <div class="research-info">
+        <div class="research-meta">Workshop · Aziza Chaouni Projects</div>
+        <div class="research-card-title">Moroccan Modernism — Heritage Workshops</div>
       </div>
+    </div>
 
-      <!-- PROJECT: ACP -->
-      <div class="research-item">
-        <div class="research-item-header">
-          <div class="research-item-meta">Workshop · Aziza Chaouni Projects</div>
-          <h3 class="research-item-title">Moroccan Modernism — Heritage Workshops</h3>
-          <p class="research-item-desc">Co-organized and facilitated heritage workshops in partnership with Aziza Chaouni Projects (ACP), focused on raising awareness around Morocco's modernist architectural legacy. Activities included site documentation, guided tours, and public engagement sessions.</p>
-        </div>
-        <div class="redetail-gallery">
-          <div class="gallery-thumbs">
-            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20TEDx.jpg" alt="Heritage Workshop" onclick="openLightbox(this)">
-            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20Workshop.jpeg" alt="Heritage Workshop" onclick="openLightbox(this)">
-          </div>
+    <!-- CARD 1: MAMMA -->
+    <div class="research-card" onclick="toggleResearch(1)">
+      <div class="research-thumb"><img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpeg" alt="MAMMA Group" loading="lazy"></div>
+      <div class="research-info">
+        <div class="research-meta">Workshop · MAMMA Group</div>
+        <div class="research-card-title">Moroccan Modernism — MAMMA Initiative</div>
+      </div>
+    </div>
+
+    <!-- CARD 2: TEACHING -->
+    <div class="research-card" onclick="toggleResearch(2)">
+      <div class="research-thumb"><img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/20260211_112212%20(1).jpg" alt="Teaching" loading="lazy"></div>
+      <div class="research-info">
+        <div class="research-meta">Teaching · Architecture Studio</div>
+        <div class="research-card-title">Studio Workshop &amp; Teaching</div>
+      </div>
+    </div>
+
+    <!-- DETAIL 0: ACP -->
+    <div class="research-detail" id="research-detail-0">
+      <div class="research-detail-inner">
+        <p class="research-detail-desc">Co-organized and facilitated heritage workshops in partnership with Aziza Chaouni Projects (ACP), focused on raising awareness around Morocco's modernist architectural legacy. Activities included site documentation, guided tours, and public engagement sessions.</p>
+        <div class="gallery-thumbs">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20TEDx.jpg" alt="Heritage Workshop" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Moi%20Workshop.jpeg" alt="Heritage Workshop" onclick="openLightbox(this)">
         </div>
       </div>
+    </div>
 
-      <!-- PROJECT: MAMMA -->
-      <div class="research-item">
-        <div class="research-item-header">
-          <div class="research-item-meta">Workshop · MAMMA Group</div>
-          <h3 class="research-item-title">Moroccan Modernism — MAMMA Initiative</h3>
-          <p class="research-item-desc">Active contributor to the MAMMA Group (Mouvement pour l'Architecture Moderniste Marocaine) — co-organized documentation events, guided tours, and roundtable discussions on the preservation of Morocco's modern built heritage.</p>
-        </div>
-        <div class="redetail-gallery">
-          <div class="gallery-thumbs">
-            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
-            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpg" alt="MAMMA Group" onclick="openLightbox(this)">
-            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(2).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
-            <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(3).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
-          </div>
+    <!-- DETAIL 1: MAMMA -->
+    <div class="research-detail" id="research-detail-1">
+      <div class="research-detail-inner">
+        <p class="research-detail-desc">Active contributor to the MAMMA Group (Mouvement pour l'Architecture Moderniste Marocaine) — co-organized documentation events, guided tours, and roundtable discussions on the preservation of Morocco's modern built heritage.</p>
+        <div class="gallery-thumbs">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(1).jpg" alt="MAMMA Group" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(2).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/mamma%20group%20(3).jpeg" alt="MAMMA Group" onclick="openLightbox(this)">
         </div>
       </div>
+    </div>
 
-      <!-- TEACHING -->
-      <div class="research-item" style="border-top: 2px solid var(--accent); margin-top:3rem">
-        <div class="research-item-header">
-          <div class="research-topic-label" style="margin-top:1.5rem">Teaching</div>
-          <p class="research-item-desc">Studio workshop facilitation, project reviews, and skills transmission in architectural drawing, 3D modelling, and graphic representation.</p>
-        </div>
-        <div class="detail-gallery">
-          <div class="gallery-thumbs">
+    <!-- DETAIL 2: TEACHING -->
+    <div class="research-detail" id="research-detail-2">
+      <div class="research-detail-inner">
+        <p class="research-detail-desc">Studio workshop facilitation, project reviews, and skills transmission in architectural drawing, 3D modelling, and graphic representation.</p>
+        <div class="gallery-thumbs">
           <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/20260211_112212%20(1).jpg" alt="Teaching" onclick="openLightbox(this)">
           <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(1).jpg" alt="Teaching 1" onclick="openLightbox(this)">
           <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(2).jpg" alt="Teaching 2" onclick="openLightbox(this)">
@@ -914,21 +927,20 @@
           <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(10).jpg" alt="Teaching 10" onclick="openLightbox(this)">
           <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(11).jpg" alt="Teaching 11" onclick="openLightbox(this)">
           <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teach%20(12).jpg" alt="Teaching 12" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(1).jpg" alt="Teaching 1" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(2).jpg" alt="Teaching 2" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(3).jpg" alt="Teaching 3" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(4).jpg" alt="Teaching 4" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(5).jpg" alt="Teaching 5" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(6).jpg" alt="Teaching 6" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(7).jpg" alt="Teaching 7" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(8).jpg" alt="Teaching 8" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(9).jpg" alt="Teaching 9" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(10).jpg" alt="Teaching 10" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(11).jpg" alt="Teaching 11" onclick="openLightbox(this)">
-          </div>
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(1).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(2).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(3).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(4).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(5).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(6).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(7).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(8).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(9).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(10).jpg" alt="Teaching" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Teacher1%20(11).jpg" alt="Teaching" onclick="openLightbox(this)">
         </div>
-        <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;padding-left:0.2rem">* Concrete structural system course.</p>
       </div>
+    </div>
 
   </div>
 </section>
@@ -1278,6 +1290,17 @@
     });
   }, { threshold: 0.2 });
   document.querySelectorAll('[data-viz]').forEach(el => vizObserver.observe(el));
+
+  function toggleResearch(index) {
+    const detail = document.getElementById('research-detail-' + index);
+    const isOpen = detail.classList.contains('open');
+    document.querySelectorAll('.research-detail').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.research-card').forEach(d => d.classList.remove('active'));
+    if (!isOpen) {
+      detail.classList.add('open');
+      detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
 
   function toggleProject(index) {
     const detail = document.getElementById('detail-' + index);
