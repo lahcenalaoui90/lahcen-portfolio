@@ -68,14 +68,29 @@
   .section-label::before { content: ''; display: block; width: 2rem; height: 2px; background: var(--accent); }
 
   /* ABOUT */
-  #about { background: var(--bg2); border-top: 1px solid var(--line); }
-  .about-grid { display: grid; grid-template-columns: 320px 1fr 1fr; gap: 4rem; align-items: start; }
-  .about-photo { position: sticky; top: 2rem; }
-  .about-photo img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; display: block; filter: grayscale(20%); }
-  .about-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; line-height: 1.15; color: var(--white); margin-bottom: 1.5rem; }
-  .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem; }
-  .contact-pill { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; padding: 0.6rem 1.2rem; border: 1px solid var(--line2); font-size: 0.75rem; letter-spacing: 0.1em; color: var(--accent); text-decoration: none; transition: all 0.3s; }
-  .contact-pill:hover { background: rgba(200,169,110,0.08); border-color: var(--accent); }
+  #about { background: var(--bg); border-top: 1px solid var(--line); }
+  .about-grid { display: grid; grid-template-columns: 1fr 420px; gap: 5rem; align-items: center; }
+  .about-left { display: flex; flex-direction: column; gap: 0; }
+  .about-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 400; line-height: 1.05; color: var(--text); margin: 0 0 0.5rem; }
+  .about-name em { color: var(--accent); font-style: italic; }
+  .about-job { font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.8rem; }
+  .about-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+  .about-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .about-btn-primary { padding: 0.75rem 1.8rem; background: var(--text); color: var(--bg); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
+  .about-btn-primary:hover { opacity: 0.8; }
+  .about-btn-secondary { padding: 0.75rem 1.8rem; background: transparent; color: var(--text); border: 1px solid var(--line2); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: border-color 0.2s; }
+  .about-btn-secondary:hover { border-color: var(--text); }
+  .about-stats { display: flex; gap: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .about-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; color: var(--text); line-height: 1; }
+  .about-stat-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+  .about-right { position: relative; }
+  .about-photo-card { border-radius: 16px; overflow: hidden; position: relative; }
+  .about-photo-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; display: block; filter: grayscale(15%); }
+  .about-float-card { position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; background: rgba(20,18,14,0.88); backdrop-filter: blur(12px); border-radius: 12px; padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .about-float-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.3rem; }
+  .about-float-title { font-size: 0.9rem; color: #fff; font-weight: 500; }
+  .about-float-sub { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+  .about-float-btn { width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; flex-shrink: 0; text-decoration: none; }
   .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
   .skill-item { padding: 0.8rem 1rem; background: var(--bg3); border-left: 2px solid var(--accent); font-size: 0.78rem; color: var(--text); letter-spacing: 0.05em; }
   .skills-section-title { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
@@ -441,9 +456,9 @@
 
     /* ABOUT */
     .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .about-photo { position: static; }
-    .about-photo img { aspect-ratio: 4/3; object-position: center 20%; }
-    .about-text h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .about-right { order: -1; }
+    .about-photo-card img { aspect-ratio: 4/3; object-position: center 20%; }
+    .about-stats { gap: 1.5rem; flex-wrap: wrap; }
     .skills-grid { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
     .skill-item { font-size: 0.72rem; padding: 0.6rem 0.8rem; }
 
@@ -515,40 +530,47 @@
 <section id="about">
   <div class="section-label">About</div>
   <div class="about-grid">
-    <div class="about-photo">
-      <img src="img/img_01_050cf2f2.png" alt="Lahcen Mdarhri Alaoui">
-    </div>
-    <div class="about-text">
-      <h2>Lahcen<br>Mdarhri<br><em>Alaoui</em></h2>
-      <p>Architectural designer with over a decade of international experience across Morocco, France, and Canada. Specialist in urban planning, interior design, 3D visualization, and sustainable, integrated design solutions.</p>
-      <p>Holds a Construction Project Management certificate from Algonquin College, Ottawa — bridging architecture and project delivery.</p>
-      <a href="mailto:lahcen.alaoui@gmail.com" class="contact-pill">lahcen.alaoui@gmail.com →</a>
-      <div class="lang-list">
-        <div class="lang-item"><span>French</span><span class="lang-level">Native</span></div>
-        <div class="lang-item"><span>Arabic</span><span class="lang-level">Native</span></div>
-        <div class="lang-item"><span>English</span><span class="lang-level">Full Professional</span></div>
+
+    <!-- LEFT -->
+    <div class="about-left">
+      <h2 class="about-name">Lahcen<br>Mdarhri<br><em>Alaoui</em></h2>
+      <div class="about-job">Architectural Designer &amp; Project Manager</div>
+      <p class="about-desc">Architectural designer with over a decade of international experience across Morocco, France, and Canada — specialist in urban planning, interior design, 3D visualization, and sustainable integrated design.</p>
+      <div class="about-btns">
+        <a href="#projects" class="about-btn-primary">View projects</a>
+        <a href="mailto:lahcen.alaoui@gmail.com" class="about-btn-secondary">Get in touch</a>
       </div>
-    </div>
-    <div>
-      <p class="skills-section-title">Software & Tools</p>
-      <div class="skills-grid">
-        <div class="skill-item">Autocad</div><div class="skill-item">Revit</div>
-        <div class="skill-item">ArchiCad</div><div class="skill-item">SketchUp</div>
-        <div class="skill-item">Lumion</div><div class="skill-item">Photoshop</div>
-        <div class="skill-item">Illustrator</div><div class="skill-item">InDesign</div>
-      </div>
-      <div style="margin-top:2rem">
-        <p class="skills-section-title">Education</p>
-        <div class="exp-item" style="border-top:1px solid var(--line)">
-          <div class="exp-date">2010 – 2018</div>
-          <div class="exp-body"><h4>EAC — École d'Architecture de Casablanca</h4><div class="exp-company">Architectural Designer</div></div>
+      <div class="about-stats">
+        <div>
+          <div class="about-stat-num">15+</div>
+          <div class="about-stat-label">Years experience</div>
         </div>
-        <div class="exp-item">
-          <div class="exp-date">2025 — In Progress</div>
-          <div class="exp-body"><h4>Construction Project Management — Certificate</h4><div class="exp-company">Algonquin College, Ottawa, Canada · 2025</div></div>
+        <div>
+          <div class="about-stat-num">50+</div>
+          <div class="about-stat-label">Projects delivered</div>
+        </div>
+        <div>
+          <div class="about-stat-num">3</div>
+          <div class="about-stat-label">Countries</div>
         </div>
       </div>
     </div>
+
+    <!-- RIGHT -->
+    <div class="about-right">
+      <div class="about-photo-card">
+        <img src="img/img_01_050cf2f2.png" alt="Lahcen Mdarhri Alaoui">
+        <div class="about-float-card">
+          <div>
+            <div class="about-float-label">Open to opportunities</div>
+            <div class="about-float-title">Available for projects</div>
+            <div class="about-float-sub">Reach out and let's build something together.</div>
+          </div>
+          <a href="mailto:lahcen.alaoui@gmail.com" class="about-float-btn">↗</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
