@@ -109,14 +109,14 @@
 
   .pm-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start; }
   /* PROJECT DETAIL PANEL */
-  .project-detail { display: none; background: var(--bg3); border: 1px solid var(--line2); overflow: hidden; }
+  .project-detail { display: none; background: var(--bg3); border: 1px solid var(--line2); overflow: hidden; grid-column: 1 / -1; }
   .project-detail.open { display: block; }
 
   /* PROJECT FOCUS STATE */
   .projects-columns { transition: grid-template-columns 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
-  .projects-col { transition: opacity 0.4s ease, padding 0.45s ease; min-width: 0; }
-  .projects-columns.has-focus .project-item:not(.active) { opacity: 0.15; pointer-events: none; padding-top: 0.6rem; padding-bottom: 0.6rem; border-top-color: transparent; }
-  .projects-columns.has-focus .project-item.active { padding-left: 1.2rem; border-top-color: var(--accent); }
+  
+  .projects-columns.has-focus .project-item:not(.active) { opacity: 0.5; }
+  .projects-columns.has-focus .project-item.active { border-color: var(--accent); }
   .projects-columns.has-focus .project-item.active .project-num { color: var(--accent); }
   .project-item { transition: opacity 0.35s ease, padding 0.35s ease, border-color 0.35s ease; }
 
@@ -388,7 +388,7 @@
 
 
   /* Two-column project categories */
-  .projects-columns { display: block; }
+  
   .projects-col { display: contents; }
   .projects-col-header { display: none; }
   .projects-col-header h3 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
