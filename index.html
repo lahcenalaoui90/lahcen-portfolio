@@ -412,11 +412,11 @@
   /* Two-column project categories */
   
   .projects-col { display: contents; }
-  .projects-col-header { display: none; }
-  .projects-col-header h3 { font-family: var(--font); font-size: 0.75rem; font-weight: 700; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
-  .projects-col-header p { font-family: var(--font); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin: 0.3rem 0 0; }
-  .projects-col:first-child { }
-  .projects-col:last-child { }
+  .projects-col-header { grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 0.9rem; margin-top: 2.5rem; border-bottom: 1px solid var(--line2); }
+  .projects-col:first-child .projects-col-header { margin-top: 0; }
+  .projects-col-header h3 { font-family: var(--font); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 500; color: var(--text); letter-spacing: -0.01em; margin: 0; }
+  .projects-col-header p { font-family: var(--font); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin: 0; }
+  .projects-col:not(:has(.project-item ~ .project-item)) .project-item { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
 
 
 
@@ -567,6 +567,8 @@
   .project-detail, .research-detail { border-radius: 18px; }
   @media (max-width: 768px) {
     .research-list { grid-template-columns: 1fr; }
+    .projects-col:not(:has(.project-item ~ .project-item)) .project-item { aspect-ratio: 4 / 3; }
+    .projects-col-header { flex-direction: column; gap: 0.3rem; margin-top: 1.5rem; }
     .project-item, .research-card { border-radius: 14px; }
     .project-info, .research-info { padding: 1.2rem 4.2rem 1.2rem 1.2rem; }
     .project-hint, .research-card::after { bottom: 1.2rem; right: 1.1rem; }
@@ -675,13 +677,8 @@
   <div class="project-list">
     <div class="projects-columns">
 
-      <!-- COLUMN: PROJECT MANAGEMENT -->
       <div class="projects-col">
-        <div class="projects-col-header">
-          <h3>Project Management</h3>
-          <p>Complex delivery · multi-stakeholder · PM lead</p>
-        </div>
-<!-- PROJECT 1 — DESCARTES -->
+        <div class="projects-col-header"><h3>Institutional</h3><p>Education · Cultural · Diplomatic</p></div>
     <div class="project-item" onclick="toggleProject(0)">
       <div class="project-thumb"><img src="Hero Descartes.jpg" alt="" loading="lazy"></div>
       <div class="project-info">
@@ -764,8 +761,129 @@
       </div>
       <!-- TAB: PROJECT MANAGEMENT -->
     </div>
+    <div class="project-item" onclick="toggleProject(1)">
+      <div class="project-thumb"><img src="Hero Embassy.png" alt="" loading="lazy"></div>
+      <div class="project-info">
+        <h3>Indian Cultural Center &amp; Embassy Residences</h3>
+        <div class="project-meta">Rabat, Morocco · 2018 · Cultural &amp; Diplomatic</div>
+        <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
+      </div>
+      
+    </div>
+    <div class="project-detail" id="detail-1">
+      <div class="detail-gallery">
+        <div class="gallery-thumbs" id="thumbs-1">
+          <img src="img/img_02_a520aeb3.jpg" alt="Indian Cultural Center — overview" onclick="openInd(0)">
+          <img src="img/img_02_a520aeb3.jpg" alt="Lobby & Yoga/Dance Space" onclick="openInd(1)">
+          <img src="img/img_02_a520aeb3.jpg" alt="Aerial view, Library & Meeting Room" onclick="openInd(2)">
+        </div>
 
-    <!-- PROJECT 4 -->
+      <!-- TABS -->
+      <div class="detail-tabs" onclick="event.stopPropagation()">
+        <div class="detail-tab active" onclick="switchTab(event,'tab-arch-1')">Architecture</div>
+      </div>
+
+      <!-- TAB: ARCHITECTURE -->
+      <div class="tab-panel active" id="tab-arch-1">
+        <div class="detail-inner">
+          <div class="detail-desc">
+            <p>Mixed-use complex for the Embassy of India in Morocco — combining a Cultural Center, a Multipurpose Performance Hall, and diplomatic residential units ranging from assistant to Councilor level.</p>
+            <p>Programme includes a library, yoga and dance studio, meeting rooms, catering kitchen, green roof terrace, and lobby. Façade features perforated mashrabiya-inspired cladding integrated with vertical gardens.</p>
+            <p>Design in partnership with Aziza Chaouni Projects and Laps Architecture.</p>
+          </div>
+          <div class="partners-block">
+            <div class="partners-label">In Partnership with :</div>
+            <div class="partners-logos">
+              <div class="partner-item">
+                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/AZIZA%20LOGO.png" alt="Aziza Chaouni Projects">
+                <span>Aziza Chaouni Projects</span>
+              </div>
+              <div class="partner-item">
+                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/LAPS%20LOGO.png" alt="Laps Architecture">
+                <span>Laps Architecture</span>
+              </div>
+            </div>
+          </div>
+          <div class="detail-stats">
+            <div class="stat-card"><div class="stat-label">Client</div><div class="stat-value">Embassy of India in Morocco</div></div>
+            <div class="stat-card"><div class="stat-label">Type</div><div class="stat-value">Cultural + Residential + Civic</div></div>
+            <div class="stat-card"><div class="stat-label">Surface</div><div class="stat-value">3,700 m²</div></div>
+            <div class="stat-card"><div class="stat-label">Budget</div><div class="stat-value">€3.3 million</div></div>
+            <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-value">2018</div></div>
+            <div class="stat-card"><div class="stat-label">Partners</div><div class="stat-value">Aziza Chaouni Projects + Laps Architecture</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: DESIGN LEAD -->
+
+    </div>
+    </div>
+      </div>
+
+      <div class="projects-col">
+        <div class="projects-col-header"><h3>Hospitality</h3><p>Resorts · Eco-tourism</p></div>
+    <div class="project-item" onclick="toggleProject(5)">
+      <div class="project-thumb"><img src="Hero Ecolodge.png" alt="" loading="lazy"></div>
+      <div class="project-info">
+        <h3>Amber Mirage Resort</h3>
+        <div class="project-meta">Agafay–Marrakech, Morocco · 2021 · Luxury Eco-Resort</div>
+        <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
+      </div>
+      
+    </div>
+    <div class="project-detail" id="detail-5">
+
+      <!-- Gallery -->
+      <div class="detail-gallery">
+        <div class="gallery-thumbs" id="thumbs-5">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(1).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(2).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(3).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
+          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(4).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="detail-tabs" onclick="event.stopPropagation()">
+        <div class="detail-tab active" onclick="switchTab(event,'tab-arch-5')">Architecture</div>
+      </div>
+
+      <!-- TAB: ARCHITECTURE -->
+      <div class="tab-panel active" id="tab-arch-5">
+        <div class="detail-inner">
+          <div class="detail-desc">
+            <p>Luxury eco-resort conceived as a dialogue between architecture and desert landscape. Set on the undulating plateaus of Agafay, the project unfolds as terraced volumes merging with the topography — embracing the horizon rather than the skyline.</p>
+            <p>Material palette of rammed earth, local stone, tadelakt, wood, and brass grounds the project in Moroccan tradition through contemporary geometry. Bioclimatic design: passive cooling, solar energy, water-recycling for irrigation.</p>
+            <p>Plans and details are confidential.</p>
+          </div>
+          <div class="partners-block">
+            <div class="partners-label">In Partnership with :</div>
+            <div class="partners-logos">
+              <div class="partner-item">
+                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/ARPIO%20LOGO.png" alt="ARPIO">
+                <span>ARPIO Architecture</span>
+              </div>
+            </div>
+          </div>
+          <div class="detail-stats">
+            <div class="stat-card"><div class="stat-label">Type</div><div class="stat-value">Luxury Eco-Resort</div></div>
+            <div class="stat-card"><div class="stat-label">Site Area</div><div class="stat-value">≈ 22 ha</div></div>
+            <div class="stat-card"><div class="stat-label">Built Area</div><div class="stat-value">≈ 9,800 m² GFA</div></div>
+            <div class="stat-card"><div class="stat-label">Capacity</div><div class="stat-value">64 units (suites + villas)</div></div>
+            <div class="stat-card"><div class="stat-label">Budget (est.)</div><div class="stat-value">€30–34 million</div></div>
+            <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-value">2021 — Concept & Competition</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PROJECT MANAGEMENT -->
+
+    </div>
+      </div>
+
+      <div class="projects-col">
+        <div class="projects-col-header"><h3>Commercial</h3><p>Retail · Store planning</p></div>
     <div class="project-item" onclick="toggleProject(3)">
       <div class="project-thumb"><img src="Hero Farmboy.jpg" alt="" loading="lazy"></div>
       <div class="project-info">
@@ -826,139 +944,11 @@
       <!-- TAB: PROJECT MANAGEMENT -->
 
     </div>
-
-    <!-- PROJECT 6 -->
-    <div class="project-item" onclick="toggleProject(5)">
-      <div class="project-thumb"><img src="Hero Ecolodge.png" alt="" loading="lazy"></div>
-      <div class="project-info">
-        <h3>Amber Mirage Resort</h3>
-        <div class="project-meta">Agafay–Marrakech, Morocco · 2021 · Luxury Eco-Resort</div>
-        <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
       </div>
-      
-    </div>
-    <div class="project-detail" id="detail-5">
-
-      <!-- Gallery -->
-      <div class="detail-gallery">
-        <div class="gallery-thumbs" id="thumbs-5">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(1).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(2).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(3).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
-          <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/Ecolodge%20(4).png" alt="Ecolodge Marrakech" onclick="openLightbox(this)">
-        </div>
-      </div>
-
-      <!-- TABS -->
-      <div class="detail-tabs" onclick="event.stopPropagation()">
-        <div class="detail-tab active" onclick="switchTab(event,'tab-arch-5')">Architecture</div>
-      </div>
-
-      <!-- TAB: ARCHITECTURE -->
-      <div class="tab-panel active" id="tab-arch-5">
-        <div class="detail-inner">
-          <div class="detail-desc">
-            <p>Luxury eco-resort conceived as a dialogue between architecture and desert landscape. Set on the undulating plateaus of Agafay, the project unfolds as terraced volumes merging with the topography — embracing the horizon rather than the skyline.</p>
-            <p>Material palette of rammed earth, local stone, tadelakt, wood, and brass grounds the project in Moroccan tradition through contemporary geometry. Bioclimatic design: passive cooling, solar energy, water-recycling for irrigation.</p>
-            <p>Plans and details are confidential.</p>
-          </div>
-          <div class="partners-block">
-            <div class="partners-label">In Partnership with :</div>
-            <div class="partners-logos">
-              <div class="partner-item">
-                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/ARPIO%20LOGO.png" alt="ARPIO">
-                <span>ARPIO Architecture</span>
-              </div>
-            </div>
-          </div>
-          <div class="detail-stats">
-            <div class="stat-card"><div class="stat-label">Type</div><div class="stat-value">Luxury Eco-Resort</div></div>
-            <div class="stat-card"><div class="stat-label">Site Area</div><div class="stat-value">≈ 22 ha</div></div>
-            <div class="stat-card"><div class="stat-label">Built Area</div><div class="stat-value">≈ 9,800 m² GFA</div></div>
-            <div class="stat-card"><div class="stat-label">Capacity</div><div class="stat-value">64 units (suites + villas)</div></div>
-            <div class="stat-card"><div class="stat-label">Budget (est.)</div><div class="stat-value">€30–34 million</div></div>
-            <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-value">2021 — Concept & Competition</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB: PROJECT MANAGEMENT -->
 
     </div>
+  </div>
 
-      </div>
-
-      <!-- COLUMN: ARCHITECTURE & DESIGN -->
-      <div class="projects-col">
-        <div class="projects-col-header">
-          <h3>Architecture &amp; Design</h3>
-          <p>Concept · design development · documentation</p>
-        </div>
-<!-- PROJECT 2 -->
-    <div class="project-item" onclick="toggleProject(1)">
-      <div class="project-thumb"><img src="Hero Embassy.png" alt="" loading="lazy"></div>
-      <div class="project-info">
-        <h3>Indian Cultural Center &amp; Embassy Residences</h3>
-        <div class="project-meta">Rabat, Morocco · 2018 · Cultural &amp; Diplomatic</div>
-        <div class="project-hint"><span class="project-hint-icon">+</span> Click for details</div>
-      </div>
-      
-    </div>
-    <div class="project-detail" id="detail-1">
-      <div class="detail-gallery">
-        <div class="gallery-thumbs" id="thumbs-1">
-          <img src="img/img_02_a520aeb3.jpg" alt="Indian Cultural Center — overview" onclick="openInd(0)">
-          <img src="img/img_02_a520aeb3.jpg" alt="Lobby & Yoga/Dance Space" onclick="openInd(1)">
-          <img src="img/img_02_a520aeb3.jpg" alt="Aerial view, Library & Meeting Room" onclick="openInd(2)">
-        </div>
-
-      <!-- TABS -->
-      <div class="detail-tabs" onclick="event.stopPropagation()">
-        <div class="detail-tab active" onclick="switchTab(event,'tab-arch-1')">Architecture</div>
-      </div>
-
-      <!-- TAB: ARCHITECTURE -->
-      <div class="tab-panel active" id="tab-arch-1">
-        <div class="detail-inner">
-          <div class="detail-desc">
-            <p>Mixed-use complex for the Embassy of India in Morocco — combining a Cultural Center, a Multipurpose Performance Hall, and diplomatic residential units ranging from assistant to Councilor level.</p>
-            <p>Programme includes a library, yoga and dance studio, meeting rooms, catering kitchen, green roof terrace, and lobby. Façade features perforated mashrabiya-inspired cladding integrated with vertical gardens.</p>
-            <p>Design in partnership with Aziza Chaouni Projects and Laps Architecture.</p>
-          </div>
-          <div class="partners-block">
-            <div class="partners-label">In Partnership with :</div>
-            <div class="partners-logos">
-              <div class="partner-item">
-                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/AZIZA%20LOGO.png" alt="Aziza Chaouni Projects">
-                <span>Aziza Chaouni Projects</span>
-              </div>
-              <div class="partner-item">
-                <img src="https://raw.githubusercontent.com/lahcenalaoui90/lahcen-portfolio/main/LAPS%20LOGO.png" alt="Laps Architecture">
-                <span>Laps Architecture</span>
-              </div>
-            </div>
-          </div>
-          <div class="detail-stats">
-            <div class="stat-card"><div class="stat-label">Client</div><div class="stat-value">Embassy of India in Morocco</div></div>
-            <div class="stat-card"><div class="stat-label">Type</div><div class="stat-value">Cultural + Residential + Civic</div></div>
-            <div class="stat-card"><div class="stat-label">Surface</div><div class="stat-value">3,700 m²</div></div>
-            <div class="stat-card"><div class="stat-label">Budget</div><div class="stat-value">€3.3 million</div></div>
-            <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-value">2018</div></div>
-            <div class="stat-card"><div class="stat-label">Partners</div><div class="stat-value">Aziza Chaouni Projects + Laps Architecture</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB: DESIGN LEAD -->
-
-    </div>
-    </div>
-
-    <!-- PROJECT 3 -->
-    
-
-    <!-- PROJECT 5 -->
-    
   <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line);text-align:center">
     <p style="font-family: var(--font);font-size:0.78rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.8rem">Plans · Sections · Elevations · Full Documentation</p>
     <a href="https://www.calameo.com/read/0073489080cbbd0063b8f" target="_blank" rel="noopener"
